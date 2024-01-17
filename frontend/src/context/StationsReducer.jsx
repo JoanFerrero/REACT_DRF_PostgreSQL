@@ -1,9 +1,8 @@
-export function StationsReducer(state, action) {
+export default function StationsReducer(state, action) {
   switch(action.type) {
-    case '':
-      return {
-        
-      }
+    case 'SET':
+      return state;
+    default:
+      return state;
   }
-
 }

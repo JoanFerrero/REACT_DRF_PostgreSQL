@@ -1,4 +1,3 @@
-import React from "react";
 import ListStations from '../../components/client/ListStations'
 import MapStations from "../../components/client/MapStations";
 
