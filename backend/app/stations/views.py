@@ -1,11 +1,10 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from .serializers import StationSerializer
+from .serializers import StationSerializer, ChairSerializer, TrainSerializer
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser 
 from rest_framework import viewsets
-
-from .models import Station
+from .models import Station, Train, Chair
 from rest_framework.permissions import (AllowAny, IsAuthenticated)
 
 class StationView(viewsets.GenericViewSet):
@@ -21,7 +20,6 @@ class StationView(viewsets.GenericViewSet):
         return Response(station_serializer.data)
     
     def post(self, request):
-        #return JsonResponse({'message': '{request}'})
         station = JSONParser().parse(request)
         serializer = StationSerializer(data=station)
         if (serializer.is_valid(raise_exception=True)):
@@ -40,4 +38,67 @@ class StationView(viewsets.GenericViewSet):
         station = Station.objects.get(id=slug)
         station.delete()
         return Response({'data': 'Station deleted successfully'})
+
+class TrainView(viewsets.GenericViewSet):
+
+    def getTrains(self, request):
+        trains = Train.objects.all()
+        trains_serializer = TrainSerializer(trains, many=True)
+        return Response(trains_serializer.data)
     
+    def getOneTrain(self, request, slug):
+        train = Train.objects.get(id=slug)
+        train_serializer = TrainSerializer(train)
+        return Response(train_serializer.data)
+    
+    def post(self, request):
+        train = JSONParser().parse(request)
+        serializer = TrainSerializer(data=train)
+        if (serializer.is_valid(raise_exception=True)):
+            serializer.save()
+        return Response(serializer.data)
+    
+    def put(self, request, slug):
+        train = Train.objects.get(id=slug)
+        data = JSONParser().parse(request)
+        serializer = TrainSerializer(instance=train, data=data, partial=True)
+        if (serializer.is_valid(raise_exception=True)):
+            serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, slug):
+        train = Train.objects.get(id=slug)
+        train.delete()
+        return Response({'data': 'Train deleted successfully'})
+
+class ChairView(viewsets.GenericViewSet):
+
+    def getChairs(self, request):
+        chairs = Chair.objects.all()
+        chairs_serializer = ChairSerializer(chairs, many=True)
+        return Response(chairs_serializer.data)
+    
+    def getOneChair(self, request, slug):
+        chair = Chair.objects.get(id=slug)
+        chair_serializer = ChairSerializer(chair)
+        return Response(chair_serializer.data)
+    
+    def post(self, request):
+        chair = JSONParser().parse(request)
+        serializer = ChairSerializer(data=chair)
+        if (serializer.is_valid(raise_exception=True)):
+            serializer.save()
+        return Response(serializer.data)
+    
+    def put(self, request, slug):
+        chair = Chair.objects.get(id=slug)
+        data = JSONParser().parse(request)
+        serializer = ChairSerializer(instance=chair, data=data, partial=True)
+        if (serializer.is_valid(raise_exception=True)):
+            serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, slug):
+        chair = Chair.objects.get(id=slug)
+        chair.delete()
+        return Response({'data': 'Chair deleted successfully'})
