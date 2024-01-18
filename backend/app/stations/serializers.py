@@ -35,14 +35,14 @@ class TrainSerializer(serializers.ModelSerializer):
 class ChairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chair
-        fields = ['id', 'slug', 'name', 'image', 'status', 'type']
+        fields = ['id', 'name', 'image', 'status', 'type', 'chair_number']
 
     def to_representation(self, instance):
         return {
             "id": instance.id,
-            "slug": instance.slug,
             "name": instance.name,
             "image": instance.image,
             "status": instance.status,
             "type": instance.type,
+            "chair_number": instance.chair_number,
         }

@@ -2,6 +2,7 @@ from django.urls import path
 from .views import StationView, TrainView, ChairView
 
 urlpatterns = [
+  
     # Stations
     path('stations', StationView.as_view({'get': 'getStations'})),
     path('stations/<str:slug>', StationView.as_view({'get': 'getOneStation'})),

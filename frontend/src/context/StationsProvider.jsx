@@ -1,21 +1,19 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import PropTypes from 'prop-types'
 import StationsReducer from './StationsReducer'
 export const StationsContext = React.createContext();
 
 const initialState = {
-  stations: [    
-    {id: 1, nombre: "valencia", descripcion: "Descripcion"},
-    {id: 2, nombre: "Madrid", descripcion: "Descripcion"},
-    {id: 3, nombre: "Malaga", descripcion: "Descripcion"}
-  ],
+  stations: [],
 }
+
 
 export function StationsProvider(props) {
   const [StationsState, StationsDispatch] = useReducer(StationsReducer, initialState);
   const value = React.useMemo(() => ({StationsState, StationsDispatch}), [
-    StationsState
+    StationsState,
   ]);
+
   return (
     <StationsContext.Provider value={value}>
       {props.children}
