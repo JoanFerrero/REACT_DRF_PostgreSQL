@@ -9,8 +9,8 @@ const CardStations = ({station}) => {
         </div>
         <div className="col-md-6 p-4 ps-md-0">
           <h5 className="mt-0">{station.name}</h5>
-          <p>{station.descripcion}</p>
-          <a href="#" className="stretched-link">Ver Estacion</a>
+          <p>{station.desc}</p>
+          <a className="stretched-link">Ver Estacion</a>
         </div>
       </div>
     </>

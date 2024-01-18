@@ -7,13 +7,14 @@ from random import randint
 class StationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
-        fields = ['id', 'slug', 'name', 'image', 'status']
+        fields = ['id', 'slug', 'name', 'desc', 'image', 'status']
 
     def to_representation(self, instance):
         return {
             "id": instance.id,
             "slug": instance.slug,
             "name": instance.name,
+            "desc": instance.desc,
             "image": instance.image,
             "status": instance.status,
         }
@@ -21,13 +22,14 @@ class StationSerializer(serializers.ModelSerializer):
 class TrainSerializer(serializers.ModelSerializer):
     class Meta:
         model = Train
-        fields = ['id', 'slug', 'name', 'image', 'status']
+        fields = ['id', 'slug', 'name', 'desc', 'image', 'status']
 
     def to_representation(self, instance):
         return {
             "id": instance.id,
             "slug": instance.slug,
             "name": instance.name,
+            "desc": instance.desc,
             "image": instance.image,
             "status": instance.status,
         }
