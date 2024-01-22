@@ -6,8 +6,7 @@ import { StationsProvider } from './context/StationsProvider';
 import CreateStationsPage from './pages/admin/CreateStationsPage';
 import ListStationsPage from './pages/admin/ListStationsPage';
 
-
-function App() {
+function App() { 
   return (
     <BrowserRouter>
       <StationsProvider>

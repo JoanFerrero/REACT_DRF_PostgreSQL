@@ -6,7 +6,11 @@ export default function StationsReducer(state, action) {
         stations: action.payload,
       };
     case 'ADD_STATIONS':
-      return state;
+      console.log(action.payload)
+      return {
+        ...state,
+        stations: [...state.stations, action.payload],
+      }
     default:
       return state;
   }

@@ -1,18 +1,49 @@
-const FormStations = () => {
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { useEffect } from "react";
+
+const FormStations = ({station = {slug: '', name: '',desc: '', image: '', status: ''}, type, sendData}) => {
+  const validators = Yup.object().shape({
+    name: Yup.string().required('*Name is required').min(3).max(50),
+    desc: Yup.string().required('*Desc is required'),
+    image: Yup.string().required('*Image is required').min(3).max(100),
+  });
+
+  useEffect(() => {
+    if (station.slug !== '') {
+      setValue('name', station.name);
+      setValue('desc', station.desc);
+      setValue('image', station.image);
+      setValue('status', station.status);
+    }
+  }, [station]);
+
+  const { register, handleSubmit, setValue, formState: {errors}} = useForm({resolver: yupResolver(validators)});
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(sendData)}>
       <div className="form-group">
-        <label htmlFor="exampleInputEmail1">Email address</label>
-        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label>Nombre</label>
+        <input type="text" className="form-control" {...register('name')} />
+        <span>{errors.name?.message}</span>
       </div>
       <div className="form-group">
-        <label htmlFor="exampleInputPassword1">Password</label>
-        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+        <label>Descripcion</label>
+        <input type="text" className="form-control" {...register('desc')} />
+        <span>{errors.desc?.message}</span>
       </div>
-      <div className="form-check">
-        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+      <div className="form-group">
+        <label>Imagen</label>
+        <input type="text" className="form-control" {...register('image')} />
+        <span>{errors.image?.message}</span>
+      </div>
+      <div className="form-group">
+        <label>Status</label>
+        <select className="form-select" defaultValue="" {...register('status')}>
+          <option value="activo">Activo</option>
+          <option value="no activo">No Activo</option>
+        </select>
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
