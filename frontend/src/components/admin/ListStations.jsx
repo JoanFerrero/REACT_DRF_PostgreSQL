@@ -5,7 +5,7 @@ import { useContextHook } from "../../hooks/useContextHook";
 const ListStations = () => {
   const { StationsState } = useContext(StationsContext);
   const { setDataStations } = useContextHook();
-
+  console.log(StationsState.stations)
   setDataStations()
   
   return (
