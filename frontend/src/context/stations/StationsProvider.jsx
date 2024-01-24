@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import PropTypes from 'prop-types'
 import StationsReducer from './StationsReducer'
 export const StationsContext = React.createContext();
@@ -6,7 +6,6 @@ export const StationsContext = React.createContext();
 const initialState = {
   stations: [],
 }
-
 
 export function StationsProvider(props) {
   const [StationsState, StationsDispatch] = useReducer(StationsReducer, initialState);

@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { StationsContext } from "../../context/StationsProvider";
-import { useStations } from "../../hooks/useStations";
+import { StationsContext } from "../../../context/stations/StationsProvider";
+import { useStations } from "../../../hooks/useStations";
 
 const ListStations = () => {
 

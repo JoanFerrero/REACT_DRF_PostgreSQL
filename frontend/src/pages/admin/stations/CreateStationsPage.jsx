@@ -1,5 +1,5 @@
-import CreateStations from "../../components/admin/CreateStations";
-import Header from "../../components/admin/Header";
+import CreateStations from "../../../components/admin/stations/CreateStations";
+import Header from "../../../components/admin/Header";
 
 const CreateStationsPage = () => {
 

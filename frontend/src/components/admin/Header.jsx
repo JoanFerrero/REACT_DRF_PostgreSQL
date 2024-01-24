@@ -9,6 +9,8 @@ const Header = () => {
     dashboard: () => navigate('/dashboard'),
     createStations: () => navigate('/dashboard/createstations'),
     listStations: () => navigate('/dashboard/liststations'),
+    listTrains: () => navigate('/dashboard/listtrains'),
+    createTrains: () => navigate('/dashboard/createtrains')
   }
 
 
@@ -52,7 +54,25 @@ const Header = () => {
     <li className="nav-item active">
       <a className="nav-link" onClick={() => redirects.createStations()}>
         <i className="fas fa-fw fa-tachometer-alt"></i>
-        <span>Creation Stations</span>
+        <span>Create Stations</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.listTrains()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>List Trains</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.createTrains()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>Create Trains</span>
       </a>
     </li>
   </ul>

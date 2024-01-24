@@ -1,6 +1,6 @@
 import React from "react";
-import EditStations from '../../components/admin/EditStations'
-import Header from "../../components/admin/Header";
+import EditStations from '../../../components/admin/stations/EditStations'
+import Header from "../../../components/admin/Header";
 
 const EditStationPage = () => {
 

@@ -1,10 +1,10 @@
 import React from "react";
-import FormStations from "./FormStations";
-import { useStations } from "../../hooks/useStations";
+import { useTrains } from "../../../hooks/useTrains";
+import FormTrains from "./FormTrains";
 
-const CreateStations = () => {
+const CreateTrains = () => {
 
-  const { useAddStations } = useStations()
+  const { useAddTrains } = useTrains()
   
   return (
     <div className="container mt-2">
@@ -12,12 +12,12 @@ const CreateStations = () => {
         <div className="card shadow mb-4">
           <a className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
             <h6 className="m-0 font-weight-bold text-primary">
-              Creacion Estaciones
+              Creacion Trenes
             </h6>
           </a>
           <div className="collapse show" id="collapseCardExample">
             <div className="col-xl-3 col-md-6 mb-4">
-              <FormStations type="create" sendData={(data) => useAddStations(data)}/>
+              <FormTrains type="create" sendData={(data) => useAddTrains(data)}/>
             </div>
           </div>
         </div>
@@ -26,4 +26,4 @@ const CreateStations = () => {
   )
 }
 
-export default CreateStations;
+export default CreateTrains;

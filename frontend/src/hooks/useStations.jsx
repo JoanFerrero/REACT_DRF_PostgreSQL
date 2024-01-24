@@ -18,7 +18,7 @@ export const useStations = () => {
     StationsService.createStations(station)
       .then(({ data, status }) => {
         if (status === 200) {
-          dispathCustom('ADD_STATIONS', data)
+          dispathCustom('ADD_STATIONS', data, 'stations')
           navigate('/dashboard/liststations')
         }
     }).catch(e => {
@@ -41,7 +41,7 @@ export const useStations = () => {
     StationsService.updateOneStation(slug, data)
       .then(({data, status}) => {
         if (status === 200) {
-          dispathCustom('EDIT_STATION', data)
+          dispathCustom('EDIT_STATION', data, 'stations')
           navigate('/dashboard/liststations')
         }
       }).catch(e => {
@@ -53,7 +53,7 @@ export const useStations = () => {
     StationsService.deleteOneStation(slug)
       .then(({data, status}) => {
         if (status === 200) {
-          dispathCustom('DELETE_STATION', slug)
+          dispathCustom('DELETE_STATION', slug, 'stations')
         }
       }).catch(e => {
         console.error(e);

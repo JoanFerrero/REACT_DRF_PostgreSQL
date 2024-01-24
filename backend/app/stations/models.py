@@ -27,6 +27,7 @@ class Chair(models.Model):
     image = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
+    train = models.ForeignKey(Train, on_delete=models.CASCADE, null=False, related_name="chair")
     chair_number = models.IntegerField()
 
     def __str__(self):

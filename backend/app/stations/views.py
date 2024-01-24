@@ -47,7 +47,7 @@ class TrainView(viewsets.GenericViewSet):
         return Response(trains_serializer.data)
     
     def getOneTrain(self, request, slug):
-        train = Train.objects.get(id=slug)
+        train = Train.objects.get(slug=slug)
         train_serializer = TrainSerializer(train)
         return Response(train_serializer.data)
     
@@ -59,7 +59,7 @@ class TrainView(viewsets.GenericViewSet):
         return Response(serializer.data)
     
     def put(self, request, slug):
-        train = Train.objects.get(id=slug)
+        train = Train.objects.get(slug=slug)
         data = JSONParser().parse(request)
         serializer = TrainSerializer(instance=train, data=data, partial=True)
         if (serializer.is_valid(raise_exception=True)):
@@ -67,7 +67,7 @@ class TrainView(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     def delete(self, request, slug):
-        train = Train.objects.get(id=slug)
+        train = Train.objects.get(slug=slug)
         train.delete()
         return Response({'data': 'Train deleted successfully'})
 
@@ -79,7 +79,7 @@ class ChairView(viewsets.GenericViewSet):
         return Response(chairs_serializer.data)
     
     def getOneChair(self, request, slug):
-        chair = Chair.objects.get(id=slug)
+        chair = Chair.objects.get(slug=slug)
         chair_serializer = ChairSerializer(chair)
         return Response(chair_serializer.data)
     
@@ -91,7 +91,7 @@ class ChairView(viewsets.GenericViewSet):
         return Response(serializer.data)
     
     def put(self, request, slug):
-        chair = Chair.objects.get(id=slug)
+        chair = Chair.objects.get(slug=slug)
         data = JSONParser().parse(request)
         serializer = ChairSerializer(instance=chair, data=data, partial=True)
         if (serializer.is_valid(raise_exception=True)):
@@ -99,6 +99,6 @@ class ChairView(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     def delete(self, request, slug):
-        chair = Chair.objects.get(id=slug)
+        chair = Chair.objects.get(slug=slug)
         chair.delete()
         return Response({'data': 'Chair deleted successfully'})
