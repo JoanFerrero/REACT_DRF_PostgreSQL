@@ -1,11 +1,13 @@
-import { useCallback, useContext, useState } from "react"
-import StationsService from "../services/StationsServices"
-import { useContextHook } from "./useContextHook"
-import { StationsContext } from "../context/StationsProvider"
+import { useCallback, useState } from "react";
+import StationsService from "../services/StationsServices";
+import { useContextHook } from "./useContextHook";
+import { useNavigate } from "react-router-dom";
+
 export const useStations = () => {
+  const navigate = useNavigate()
   const { dispathCustom } = useContextHook()
-  const { StationsState } = useContext(StationsContext);
   const [ oneStation, setOneStation ] = useState();
+
   const useAddStations = useCallback(data => {
     const station = {
       "name": data.name,
@@ -17,6 +19,7 @@ export const useStations = () => {
       .then(({ data, status }) => {
         if (status === 200) {
           dispathCustom('ADD_STATIONS', data)
+          navigate('/dashboard/liststations')
         }
     }).catch(e => {
       console.error(e);
@@ -38,13 +41,24 @@ export const useStations = () => {
     StationsService.updateOneStation(slug, data)
       .then(({data, status}) => {
         if (status === 200) {
-          console.log('hola')
           dispathCustom('EDIT_STATION', data)
+          navigate('/dashboard/liststations')
         }
       }).catch(e => {
         console.error(e);
       });
   }, [])
+
+  const useDeleteStation = (slug) => {
+    StationsService.deleteOneStation(slug)
+      .then(({data, status}) => {
+        if (status === 200) {
+          dispathCustom('DELETE_STATION', slug)
+        }
+      }).catch(e => {
+        console.error(e);
+      })
+  }
   
-  return { useAddStations, oneStation, useOneStation, useUpdateStation }
+  return { useAddStations, oneStation, useOneStation, useUpdateStation, useDeleteStation }
 }

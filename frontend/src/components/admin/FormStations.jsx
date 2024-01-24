@@ -2,10 +2,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const FormStations = ({station = {slug: '', name: '',desc: '', image: '', status: ''}, type, sendData}) => {
-  const navigate = useNavigate()
   const validators = Yup.object().shape({
     name: Yup.string().required('*Name is required').min(3).max(50),
     desc: Yup.string().required('*Desc is required'),
@@ -20,10 +18,6 @@ const FormStations = ({station = {slug: '', name: '',desc: '', image: '', status
       setValue('status', station.status);
     }
   }, [station]);
-
-  const redirects = {
-    stations: () => navigate('/dashboard/liststations'),
-  }
 
   const { register, handleSubmit, setValue, formState: {errors}} = useForm({resolver: yupResolver(validators)});
 

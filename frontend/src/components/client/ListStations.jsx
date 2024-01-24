@@ -9,6 +9,7 @@ const ListStations = () => {
   const { StationsState } = useContext(StationsContext);
   const { setDataStations } = useContextHook();
 
+
   setDataStations();
 
   return (

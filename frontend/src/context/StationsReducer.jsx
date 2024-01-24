@@ -13,7 +13,6 @@ export default function StationsReducer(state, action) {
         stations: [...state.stations, action.payload],
       }
     case 'EDIT_STATION':
-      console.log('hola')
       return {
         ...state,
         stations: state.stations.map(item => {
@@ -23,6 +22,11 @@ export default function StationsReducer(state, action) {
           }
           return item;
           })
+      }
+    case 'DELETE_STATION':
+      return {
+        ...state,
+        stations: state.stations.filter(item => item.slug !== action.payload)
       }
     default:
       return state;

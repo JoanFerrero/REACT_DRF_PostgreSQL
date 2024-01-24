@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { StationsContext } from "../../context/StationsProvider";
-import { useContextHook } from "../../hooks/useContextHook";
+import { useStations } from "../../hooks/useStations";
 
 const ListStations = () => {
+
   const { StationsState } = useContext(StationsContext);
-  const { setDataStations } = useContextHook();
-  console.log(StationsState.stations)
-  setDataStations()
+  const { useDeleteStation } = useStations();
   
   return (
     <table className="table table-striped">
@@ -16,6 +15,8 @@ const ListStations = () => {
           <th scope="col">Nombre</th>
           <th scope="col">Descripcion</th>
           <th scope="col">Estado</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +26,8 @@ const ListStations = () => {
             <td>{station.name}</td>
             <td>{station.desc}</td>
             <td>{station.status}</td>
+            <td><button><a href={'/dashboard/updatestations/' + station.slug}>Editar</a></button></td>
+            <td><button onClick={() => useDeleteStation(station.slug)}>Borrar</button></td>
           </tr>
         ))}
       </tbody>

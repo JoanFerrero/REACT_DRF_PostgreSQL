@@ -11,8 +11,10 @@ const StationsService = {
     return api().get("/stations/" + slug);
   },
   updateOneStation(slug, data) {
-    console.log(data)
     return api().put("/stations/" + slug, data);
+  },
+  deleteOneStation(slug) {
+    return api().delete("/stations/" + slug)
   }
 };
 

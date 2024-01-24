@@ -1,7 +1,10 @@
 import Header from "../../components/admin/Header";
 import ListStations from "../../components/admin/ListStations";
+import { useContextHook } from "../../hooks/useContextHook";
 
 const ListStationsPage = () => {
+  const { setDataStations } = useContextHook();
+  setDataStations()
   return (
     <div id="wrapper">
       <Header/>
