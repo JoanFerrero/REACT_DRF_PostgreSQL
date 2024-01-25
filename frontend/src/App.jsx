@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { StationsProvider } from './context/stations/StationsProvider';
 import { TrainsProvider } from './context/trains/TrainsProvider';
+import { ChairsProvider } from './context/chairs/ChairsProvider';
 
 import Stations from './pages/client/StationsPage';
 import CreateStationsPage from './pages/admin/stations/CreateStationsPage';
@@ -14,24 +15,34 @@ import ListTrainsPage from './pages/admin/trains/ListTrainsPage';
 import CreateTrainsPage from './pages/admin/trains/CreateTrainsPage';
 import EditTrainsPage from './pages/admin/trains/EditTrainsPage';
 
+import ListChairsPage from './pages/admin/chairs/ListChairsPage';
+import CreateChairsPage from './pages/admin/chairs/CreateChairsPage';
+import EditChairsPage from './pages/admin/chairs/EditChairsPage'
+
 function App() { 
   return (
     <BrowserRouter>
       <StationsProvider>
         <TrainsProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path='/stations' element={<Stations />} />
-            <Route path="/dashboard" element={<DashboardPage/>} />
+          <ChairsProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/stations" element={<Stations />} />
+              <Route path="/dashboard" element={<DashboardPage/>} />
 
-            <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
-            <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
-            <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
+              <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
+              <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
+              <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
 
-            <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
-            <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
-            <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
-          </Routes>
+              <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
+              <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
+              <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
+
+              <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
+              <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
+              <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+            </Routes>
+          </ChairsProvider>
         </TrainsProvider>
       </StationsProvider>
     </BrowserRouter>

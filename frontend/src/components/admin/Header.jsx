@@ -1,16 +1,25 @@
 import './sb-admin-2.css';
 import { useNavigate } from "react-router-dom";
+import { useContextHook } from '../../hooks/useContextHook';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { setDataContexts } = useContextHook()
 
+  setDataContexts()
+  
   const redirects = {
     home: () => navigate('/'),
     dashboard: () => navigate('/dashboard'),
+
     createStations: () => navigate('/dashboard/createstations'),
     listStations: () => navigate('/dashboard/liststations'),
+
     listTrains: () => navigate('/dashboard/listtrains'),
-    createTrains: () => navigate('/dashboard/createtrains')
+    createTrains: () => navigate('/dashboard/createtrains'),
+
+    listChairs: () => navigate('/dashboard/listchairs'),
+    createChairs: () => navigate('/dashboard/createchairs'),
   }
 
 
@@ -73,6 +82,24 @@ const Header = () => {
       <a className="nav-link" onClick={() => redirects.createTrains()}>
         <i className="fas fa-fw fa-tachometer-alt"></i>
         <span>Create Trains</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.listChairs()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>List Chairs</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.createChairs()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>Create Chairs</span>
       </a>
     </li>
   </ul>

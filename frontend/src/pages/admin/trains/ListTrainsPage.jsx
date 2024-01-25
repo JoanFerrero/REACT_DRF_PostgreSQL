@@ -1,13 +1,7 @@
 import Header from "../../../components/admin/Header";
 import ListTrains from "../../../components/admin/trains/ListTrains";
 
-import { useContextHook } from "../../../hooks/useContextHook";
-
 const ListTrainsPage = () => {
-  const { setDataTrains } = useContextHook();
-
-  setDataTrains()
-
   return (
     <div id="wrapper">
       <Header/>

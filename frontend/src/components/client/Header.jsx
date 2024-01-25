@@ -1,8 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useContextHook } from "../../hooks/useContextHook";
 const Header = () => {
   const navigate = useNavigate();
+  const { setDataContexts } = useContextHook()
+
+  setDataContexts()
 
   const redirects = {
     home: () => navigate('/'),

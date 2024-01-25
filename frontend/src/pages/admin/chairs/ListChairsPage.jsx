@@ -1,7 +1,7 @@
 import Header from "../../../components/admin/Header";
-import ListStations from "../../../components/admin/stations/ListStations";
+import ListChairs from "../../../components/admin/chairs/ListChairs";
 
-const ListStationsPage = () => {
+const ListChairsPage = () => {
   return (
     <div id="wrapper">
       <Header/>
@@ -10,11 +10,11 @@ const ListStationsPage = () => {
           <div className="col-lg-12">
             <div className="card shadow mb-4">
               <a className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                <h6 className="m-0 font-weight-bold text-primary">Lista Estaciones</h6>
+                <h6 className="m-0 font-weight-bold text-primary">Lista Sillas</h6>
               </a>
               <div className="collapse show" id="collapseCardExample">
                 <div className="col-xl-3 col-md-6 mb-4">
-                  <ListStations />
+                  <ListChairs />
                 </div>
               </div>
             </div>
@@ -25,4 +25,4 @@ const ListStationsPage = () => {
   )
 };
 
-export default ListStationsPage;
+export default ListChairsPage;
