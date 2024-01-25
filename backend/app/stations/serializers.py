@@ -9,7 +9,7 @@ class StationSerializer(serializers.ModelSerializer):
         model = Station
         fields = ['id', 'slug', 'name', 'desc', 'image', 'status']
 
-    def to_representation(self, instance):
+    def to_station(self, instance):
         return {
             "id": instance.id,
             "slug": instance.slug,
@@ -24,7 +24,7 @@ class TrainSerializer(serializers.ModelSerializer):
         model = Train
         fields = ['id', 'slug', 'name', 'desc', 'image', 'status']
 
-    def to_representation(self, instance):
+    def to_train(self, instance):
         return {
             "id": instance.id,
             "slug": instance.slug,
@@ -37,14 +37,16 @@ class TrainSerializer(serializers.ModelSerializer):
 class ChairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chair
-        fields = ['id', 'name', 'image', 'status', 'type', 'chair_number']
+        fields = ['id', 'slug','name', 'image', 'status', 'type', 'train', 'chair_number']
 
-    def to_representation(self, instance):
+    def to_chair(self, instance):
         return {
             "id": instance.id,
+            "slug": instance.slug,
             "name": instance.name,
             "image": instance.image,
             "status": instance.status,
             "type": instance.type,
+            "train": instance.train,
             "chair_number": instance.chair_number,
         }
