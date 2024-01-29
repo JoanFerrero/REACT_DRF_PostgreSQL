@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from .models import Station
-from .models import Train
-from .models import Chair
+from .models import Station, Train, Chair
 from random import randint
 
 class StationSerializer(serializers.ModelSerializer):

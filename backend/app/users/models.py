@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, PermissionsMixin)
 from django.conf import settings
 from datetime import datetime, timedelta
+import jwt
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password):
@@ -28,6 +29,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     objects = UserManager()
+
+    @property
+    def token(self):
+        return self.generate_token_jwt(1080)
+    
+    @property
+    def ref_token(self):
+        return self.generate_token_jwt(10800)
+
+    def generate_token_jwt(self, token_time):
+        dt = datetime.now() + timedelta(seconds=token_time)
+
+        token = jwt.encode({'username': self.username, 'exp': dt.utcfromtimestamp(dt.timestamp())
+        }, 'ajsdnkajdn', algorithm='HS256')
+
+        return token
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="profile")
