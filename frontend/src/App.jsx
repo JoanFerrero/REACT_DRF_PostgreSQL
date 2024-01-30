@@ -1,4 +1,4 @@
-import Home from './pages/client/HomePage';
+import HomePage from './pages/client/HomePage';
 import DashboardPage from './pages/admin/DashboardPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -17,7 +17,10 @@ import EditTrainsPage from './pages/admin/trains/EditTrainsPage';
 
 import ListChairsPage from './pages/admin/chairs/ListChairsPage';
 import CreateChairsPage from './pages/admin/chairs/CreateChairsPage';
-import EditChairsPage from './pages/admin/chairs/EditChairsPage'
+import EditChairsPage from './pages/admin/chairs/EditChairsPage';
+
+import LoginPage from './pages/client/LoginPage';
+import RegisterPage from './pages/client/RegisterPage';
 
 function App() { 
   return (
@@ -26,8 +29,11 @@ function App() {
         <TrainsProvider>
           <ChairsProvider>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/stations" element={<Stations />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/register' element={<RegisterPage />} />
+
               <Route path="/dashboard" element={<DashboardPage/>} />
 
               <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />

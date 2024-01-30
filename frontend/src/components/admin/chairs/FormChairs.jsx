@@ -13,7 +13,6 @@ const FormChairs = ({chair = {slug: '', name: '',desc: '', image: '', status: ''
   });
 
   useEffect(() => {
-    console.log(chair)
     if (chair.slug !== '') {
       setValue('name', chair.name);
       setValue('type', chair.type);

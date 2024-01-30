@@ -2,15 +2,10 @@ import {useContext, useEffect} from "react";
 import CardStations from './CardStations'
 import Search from "./Search";
 import { StationsContext } from "../../context/stations/StationsProvider";
-import { useContextHook } from "../../hooks/useContextHook";
 
 const ListStations = () => {
 
   const { StationsState } = useContext(StationsContext);
-  const { setDataStations } = useContextHook();
-
-
-  setDataStations();
 
   return (
     <>
@@ -20,7 +15,7 @@ const ListStations = () => {
           <CardStations key={station.id} station={station}/>
         ))
       ) : (
-        <h1>No existen Estaciones</h1> 
+        <h1>No existen Estaciones</h1>
       )}
     </>
   )
