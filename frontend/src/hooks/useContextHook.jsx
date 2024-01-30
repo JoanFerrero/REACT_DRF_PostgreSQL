@@ -1,9 +1,10 @@
 import { StationsContext } from "../context/stations/StationsProvider";
 import { useContext, useEffect } from "react";
-import StationsService from "../services/StationsServices";
-import TrainsService from "../services/TrainsServices";
 import { TrainsContext } from "../context/trains/TrainsProvider";
 import { ChairsContext } from "../context/chairs/ChairsProvider";
+import { AuthContext } from "../context/Auth/AuthProvider";
+import StationsService from "../services/StationsServices";
+import TrainsService from "../services/TrainsServices";
 import ChairsService from "../services/ChairsServices";
 
 export const useContextHook = () => {
@@ -11,6 +12,7 @@ export const useContextHook = () => {
   const { StationsDispatch, StationsState } = useContext(StationsContext);
   const { TrainsDispatch, TrainsState } = useContext(TrainsContext);
   const { ChairsDispatch, ChairsState } = useContext(ChairsContext);
+  const { AuthDispatch, AuthState } = useContext(AuthContext);
 
   const setDataContexts = () => {
     useEffect(() => {
@@ -54,6 +56,11 @@ export const useContextHook = () => {
       ChairsDispatch({
         type: type,
         payload: payload,
+      })
+    } else if(context === 'auth') {
+      AuthDispatch({
+        type: type,
+        payload: payload
       })
     }
   };

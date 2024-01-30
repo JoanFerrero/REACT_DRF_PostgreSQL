@@ -7,7 +7,7 @@ const FormRegister = ({sendData}) => {
   const validators = Yup.object().shape({
     username: Yup.string().required('*The username is required').min(3).max(10),
     email: Yup.string().required('*The email is required').min(3).max(50),
-    password: Yup.string().required('*The password is required'),
+    password1: Yup.string().required('*The password is required'),
   });
 
   const { register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validators)});
@@ -37,7 +37,7 @@ const FormRegister = ({sendData}) => {
             id="exampleRepeatPassword" placeholder="Repeat Password"
             {...register('password2')}/>
         </div>
-        <span>{errors.password?.message}</span>
+        <span>{errors.password1?.message}</span>
       </div>
       <button className="btn btn-primary btn-user btn-block">
           Register Account
