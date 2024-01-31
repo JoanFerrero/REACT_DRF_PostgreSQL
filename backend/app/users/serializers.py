@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User, Profile
 
-class UserSerializar(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ( 'id', 'uuid', 'username', 'email', 'password', 'type', 'is_superuser')
@@ -42,6 +42,25 @@ class UserSerializar(serializers.ModelSerializer):
         if not user.check_password(password):
             raise serializers.ValidationError('*Wrong email or password.')
         
+        return {
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'type': user.type
+            },
+            'token': user.token,
+            'ref_token': user.ref_token,
+        }
+    
+    def getUser(context):
+        username = context['username']
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            raise serializers.ValidationError('*User not found.')
+
         return {
             'user': {
                 'id': user.id,

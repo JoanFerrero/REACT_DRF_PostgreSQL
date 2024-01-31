@@ -13,7 +13,6 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, username, email, password):
         user = self.model(email=self.normalize_email(email), username=username, type='admin')
-        user.is_staff = True
         user.is_superuser = True
         user.set_password(password)
         user.save()
@@ -42,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         dt = datetime.now() + timedelta(seconds=token_time)
 
         token = jwt.encode({'username': self.username, 'exp': dt.utcfromtimestamp(dt.timestamp())
-        }, 'ajsdnkajdn', algorithm='HS256')
+        }, settings.SECRET_KEY, algorithm='HS256')
 
         return token
 
