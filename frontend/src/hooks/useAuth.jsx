@@ -1,8 +1,13 @@
 import { useCallback } from "react"
 import AuthService from "../services/AuthServices";
 import toast from 'react-hot-toast';
+import { useContextHook } from "./useContextHook";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
+
+  const { dispathCustom } = useContextHook();
+  const navigate = useNavigate()
 
   const useLoginUser = useCallback(data => {
     const user = {
@@ -12,7 +17,10 @@ export const useAuth = () => {
     AuthService.loginUser(user)
       .then(({ data, status }) => {
         if (status === 200) {
-          console.log(data)
+          dispathCustom("SET_TOKEN", data.token, "auth")
+          dispathCustom("SET_USER", data.user, "auth")
+          dispathCustom("SET_IS_AUTH", true, "auth");
+          dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
           toast.success('Login correcto!!');
         }
     }).catch(e => {
@@ -32,7 +40,10 @@ export const useAuth = () => {
       AuthService.registerUser(user)
         .then(({ data, status}) => {
           if (status === 200) {
-            console.log(data)
+            dispathCustom("SET_TOKEN", data.token, "auth")
+            dispathCustom("SET_USER", data.user, "auth")
+            dispathCustom("SET_IS_AUTH", true, "auth");
+            dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
             toast.success('Registro correcto!!')
           }
       }).catch(e => {
@@ -44,5 +55,14 @@ export const useAuth = () => {
     }
   }, [])
 
-  return { useLoginUser, useRegisterUser }
+  const useLogOutUser = useCallback(data => {
+    dispathCustom("SET_TOKEN", '', "auth")
+    dispathCustom("SET_USER", {}, "auth")
+    dispathCustom("SET_IS_AUTH", false, "auth");
+    dispathCustom("SET_IS_ADMIN", false, "auth");
+    navigate('/')
+    toast.success('Cerrar sesion correcto!!')
+  }, [])
+
+  return { useLoginUser, useRegisterUser, useLogOutUser }
 }

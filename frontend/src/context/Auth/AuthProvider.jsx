@@ -5,7 +5,7 @@ export const AuthContext = React.createContext();
 
 const initialState = {
   user: {},
-  token: false,
+  token: '',
   isAuth: false,
   isAdmin: false
 }

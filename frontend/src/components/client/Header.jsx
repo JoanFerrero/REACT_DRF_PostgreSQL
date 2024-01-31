@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextHook } from "../../hooks/useContextHook";
+import { AuthContext } from "../../context/Auth/AuthProvider";
+import { useAuth } from "../../hooks/useAuth";
 const Header = () => {
   const navigate = useNavigate();
-  const { setDataContexts } = useContextHook()
+  const { setDataContexts } = useContextHook();
+  const { useLogOutUser} = useAuth();
 
   setDataContexts()
 
@@ -14,6 +17,24 @@ const Header = () => {
     login: () => navigate('/login'),
     register: () => navigate('/register'),
   }
+
+  const { AuthState } = useContext(AuthContext);
+
+  const logout = () => {
+    useLogOutUser()
+  }
+
+  const isUser = AuthState.isAuth ? ( 
+    <a className="nav-link" onClick={() => logout()}>Log out</a>
+  ) : (              
+    <>
+      <a className="nav-link" onClick={() => redirects.register()}>Register</a>
+      <a className="nav-link" onClick={() => redirects.login()}>Login</a>
+    </>
+  );
+
+  const isAdminUser = AuthState.isAdmin ? <a className="nav-link" onClick={() => redirects.dashboard()}>Dashboard</a> : '';
+
 
   return (
     <nav className="navbar navbar-expand-md bg-dark border-bottom" data-bs-theme="dark">
@@ -30,9 +51,8 @@ const Header = () => {
               </li>
               <a className="nav-link" onClick={() => redirects.home()}>Home</a>
               <a className="nav-link" onClick={() => redirects.stations()}>Stations</a>
-              <a className="nav-link" onClick={() => redirects.register()}>Register</a>
-              <a className="nav-link" onClick={() => redirects.login()}>Login</a>
-              <a className="nav-link" onClick={() => redirects.dashboard()}>Dashboard</a>
+              {isUser}
+              {isAdminUser}
             </ul>
           </div>
         </div>

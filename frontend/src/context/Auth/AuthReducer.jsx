@@ -8,22 +8,17 @@ export default function AuthReducer(state, action) {
     case 'SET_IS_AUTH':
       return {
         ...state,
-        isAuth: true
-      }
-    case 'SET_IS_NOT_AUTH':
-      return {
-        ...state,
-        isAuth: false
+        isAuth: action.payload,
       }
     case 'SET_IS_ADMIN':
       return {
         ...state,
-        isAdmin: true
+        isAdmin: action.payload,
       }
-    case 'SET_IS_NOT_ADMIN':
+    case 'SET_TOKEN':
       return {
         ...state,
-        isAdmin: false
+        token: action.payload,
       }
     default:
       return state;
