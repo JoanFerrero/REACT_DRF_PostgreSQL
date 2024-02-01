@@ -25,6 +25,8 @@ import RegisterPage from './pages/client/RegisterPage';
 import { Toaster } from 'react-hot-toast';
 import HeaderPage from './pages/HeaderPage';
 
+import AdminGuard from './services/guards/AdminGuard';
+
 function App() { 
   return (
     <BrowserRouter>
@@ -38,20 +40,21 @@ function App() {
                   <Route path="/stations" element={<Stations />} />
                   <Route path='/login' element={<LoginPage />} />
                   <Route path='/register' element={<RegisterPage />} />
+                  <Route element={<AdminGuard/>}>
+                    <Route path="/dashboard" element={<DashboardPage/>} />
 
-                  <Route path="/dashboard" element={<DashboardPage/>} />
+                    <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
+                    <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
+                    <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
 
-                  <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
-                  <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
-                  <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
+                    <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
+                    <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
+                    <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
 
-                  <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
-                  <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
-                  <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
-
-                  <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
-                  <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
-                  <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+                    <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
+                    <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
+                    <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+                  </Route>
                 </Routes>
                 <Toaster
                   position="top-right"

@@ -8,9 +8,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { setDataContexts, dispathCustom } = useContextHook();
   const { useLogOutUser} = useAuth();
-  const { useIsLoged } = useAuth();
-
-  useIsLoged();
 
   setDataContexts()
 
@@ -28,11 +25,6 @@ const Header = () => {
     useLogOutUser()
   }
 
-  const setDashboard = () => {
-    dispathCustom('SET_SITE', true, 'auth');
-    redirects.dashboard()
-  }
-
   const isUser = AuthState.isAuth ? (
     <a className="nav-link" onClick={() => logout()}>Log out</a>
   ) : (              
@@ -42,8 +34,7 @@ const Header = () => {
     </>
   );
 
-  const isAdminUser = AuthState.isAdmin ? <a className="nav-link" onClick={() => setDashboard()}>Dashboard</a> : '';
-
+  const isAdminUser = AuthState.isAdmin ? <a className="nav-link" onClick={() => redirects.dashboard()}>Dashboard</a> : '';
 
   return (
     <nav className="navbar navbar-expand-md bg-dark border-bottom" data-bs-theme="dark">

@@ -4,22 +4,20 @@ import HeaderDashBoard from "../components/admin/Header";
 import { useContext, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { useContextHook } from "../hooks/useContextHook";
-
+import { useAuth } from "../hooks/useAuth";
 const HeaderPage = ({ children }) => {
   const { AuthState } = useContext(AuthContext);
   const location = useLocation();
   const urlParts = location.pathname.split('/');
-  const { dispathCustom } = useContextHook()
+  const { useIsLoged } = useAuth();
 
   useEffect(() => {
-    if(urlParts[1] === 'dashboard') {
-      dispathCustom('SET_SITE', true, 'auth');
-    }
+    useIsLoged();
   }, [])
 
   return (
     <>
-      {AuthState.dashboard === true ? (
+      { AuthState.isAdmin === true && urlParts[1] === 'dashboard' ? (
         <>
           <div id="wrapper">
             <HeaderDashBoard />

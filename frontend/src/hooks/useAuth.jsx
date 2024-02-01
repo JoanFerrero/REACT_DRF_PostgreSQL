@@ -11,23 +11,20 @@ export const useAuth = () => {
   const navigate = useNavigate()
 
   const useIsLoged = () => {
-    useEffect(() => {
-      if(localStorage.getItem('token')) {
-        AuthService.getUser()
-        .then(({ data, status }) => {
-          if (status === 200) {
-            localStorage.setItem('token', data.token);
-            dispathCustom("SET_TOKEN", data.token, "auth")
-            dispathCustom("SET_USER", data.user, "auth")
-            dispathCustom("SET_IS_AUTH", true, "auth");
-            dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
-          }
+    if(localStorage.getItem('token')) {
+      AuthService.getUser()
+      .then(({ data, status }) => {
+        if (status === 200) {
+          localStorage.setItem('token', data.token);
+          dispathCustom("SET_TOKEN", data.token, "auth")
+          dispathCustom("SET_USER", data.user, "auth")
+          dispathCustom("SET_IS_AUTH", true, "auth");
+          dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
+        }
       }).catch(e => {
         console.error(e);
-        useLogOutUser();
       });
-      }
-    }, [])
+    }
   }
 
   const useLoginUser = useCallback(data => {
