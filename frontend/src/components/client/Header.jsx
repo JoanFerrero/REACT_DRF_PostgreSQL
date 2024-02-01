@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useContextHook } from "../../hooks/useContextHook";
 import { AuthContext } from "../../context/Auth/AuthProvider";
 import { useAuth } from "../../hooks/useAuth";
+
 const Header = () => {
   const navigate = useNavigate();
-  const { setDataContexts } = useContextHook();
+  const { setDataContexts, dispathCustom } = useContextHook();
   const { useLogOutUser} = useAuth();
+  const { useIsLoged } = useAuth();
+
+  useIsLoged();
 
   setDataContexts()
 
@@ -24,7 +28,12 @@ const Header = () => {
     useLogOutUser()
   }
 
-  const isUser = AuthState.isAuth ? ( 
+  const setDashboard = () => {
+    dispathCustom('SET_SITE', true, 'auth');
+    redirects.dashboard()
+  }
+
+  const isUser = AuthState.isAuth ? (
     <a className="nav-link" onClick={() => logout()}>Log out</a>
   ) : (              
     <>
@@ -33,7 +42,7 @@ const Header = () => {
     </>
   );
 
-  const isAdminUser = AuthState.isAdmin ? <a className="nav-link" onClick={() => redirects.dashboard()}>Dashboard</a> : '';
+  const isAdminUser = AuthState.isAdmin ? <a className="nav-link" onClick={() => setDashboard()}>Dashboard</a> : '';
 
 
   return (

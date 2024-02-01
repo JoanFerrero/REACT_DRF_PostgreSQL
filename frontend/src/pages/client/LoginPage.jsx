@@ -1,5 +1,4 @@
 import FormLogin from "../../components/client/FormLogin";
-import Header from "../../components/client/Header";
 import { useAuth } from "../../hooks/useAuth";
 
 const LoginPage = () => {
@@ -8,7 +7,6 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-10 col-lg-12 col-md-9">

@@ -20,6 +20,11 @@ export default function AuthReducer(state, action) {
         ...state,
         token: action.payload,
       }
+    case 'SET_SITE':
+      return {
+        ...state,
+        dashboard: action.payload,
+      }
     default:
       return state;
   }

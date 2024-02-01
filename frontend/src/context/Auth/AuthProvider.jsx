@@ -7,7 +7,8 @@ const initialState = {
   user: {},
   token: '',
   isAuth: false,
-  isAdmin: false
+  isAdmin: false,
+  dashboard: false,
 }
 
 export function AuthProvider(props) {

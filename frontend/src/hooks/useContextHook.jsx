@@ -58,7 +58,6 @@ export const useContextHook = () => {
         payload: payload,
       })
     } else if(context === 'auth') {
-      console.log('hola')
       AuthDispatch({
         type: type,
         payload: payload

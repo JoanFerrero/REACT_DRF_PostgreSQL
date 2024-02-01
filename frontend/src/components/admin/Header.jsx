@@ -4,7 +4,7 @@ import { useContextHook } from '../../hooks/useContextHook';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { setDataContexts } = useContextHook()
+  const { setDataContexts, dispathCustom } = useContextHook()
 
   setDataContexts()
   
@@ -22,6 +22,10 @@ const Header = () => {
     createChairs: () => navigate('/dashboard/createchairs'),
   }
 
+  const setHome = () => {
+    dispathCustom('SET_SITE', false, 'auth');
+    redirects.home()
+  }
 
   return (
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -36,7 +40,7 @@ const Header = () => {
     <hr className="sidebar-divider my-0" />
 
     <li className="nav-item active">
-        <a className="nav-link" onClick={() => redirects.home()}>
+        <a className="nav-link" onClick={() => setHome()}>
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>Home</span></a>
     </li>

@@ -7,6 +7,9 @@ const AuthService = {
   registerUser(data) {
     return api().post("/register", data);
   },
+  getUser() {
+    return api().get('user');
+  },
 };
 
 export default AuthService;
