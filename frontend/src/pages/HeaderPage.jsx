@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { useContextHook } from "../hooks/useContextHook";
 import { useAuth } from "../hooks/useAuth";
+import TopBar from "../components/admin/dashboard/TopBar";
 const HeaderPage = ({ children }) => {
   const { AuthState } = useContext(AuthContext);
   const location = useLocation();
@@ -21,7 +22,10 @@ const HeaderPage = ({ children }) => {
         <>
           <div id="wrapper">
             <HeaderDashBoard />
-            {children}
+            <div id="content-wrapper" className="d-flex flex-column" >
+              <TopBar />
+              {children}
+            </div>
           </div>
         </>
       ) : (

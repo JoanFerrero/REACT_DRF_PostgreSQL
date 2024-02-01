@@ -17,6 +17,7 @@ const Header = () => {
     dashboard: () => navigate('/dashboard'),
     login: () => navigate('/login'),
     register: () => navigate('/register'),
+    profile: () => navigate('/profile'),
   }
 
   const { AuthState } = useContext(AuthContext);
@@ -26,7 +27,10 @@ const Header = () => {
   }
 
   const isUser = AuthState.isAuth ? (
-    <a className="nav-link" onClick={() => logout()}>Log out</a>
+    <>
+      <a className="nav-link" onClick={() => redirects.profile()}>Profile</a>
+      <a className="nav-link" onClick={() => logout()}>Log out</a>
+    </>
   ) : (              
     <>
       <a className="nav-link" onClick={() => redirects.register()}>Register</a>
@@ -51,8 +55,8 @@ const Header = () => {
               </li>
               <a className="nav-link" onClick={() => redirects.home()}>Home</a>
               <a className="nav-link" onClick={() => redirects.stations()}>Stations</a>
-              {isUser}
               {isAdminUser}
+              {isUser}
             </ul>
           </div>
         </div>

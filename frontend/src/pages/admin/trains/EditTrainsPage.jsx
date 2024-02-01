@@ -5,9 +5,7 @@ import EditTrains from "../../../components/admin/trains/EditTrains";
 const EditTrainsPage = () => {
 
   return (
-    <div id="content-wrapper" className="d-flex flex-column" >
-      <EditTrains/>
-    </div>
+    <EditTrains/>
   )
 }
 

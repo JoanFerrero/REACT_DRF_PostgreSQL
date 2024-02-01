@@ -5,9 +5,7 @@ import Header from "../../../components/admin/Header";
 const EditStationPage = () => {
 
   return (
-    <div id="content-wrapper" className="d-flex flex-column" >
-      <EditStations/>
-    </div>
+    <EditStations/>
   )
 }
 

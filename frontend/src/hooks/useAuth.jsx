@@ -1,29 +1,33 @@
-import { useCallback, useEffect } from "react"
+import { useCallback } from "react"
 import AuthService from "../services/AuthServices";
 import toast from 'react-hot-toast';
 import { useContextHook } from "./useContextHook";
 import { useNavigate } from "react-router-dom";
 import JwtService from "../services/JwtService";
+import { useLocation } from 'react-router-dom';
 
 export const useAuth = () => {
 
   const { dispathCustom } = useContextHook();
   const navigate = useNavigate()
+  const location = useLocation();
+  const urlParts = location.pathname.split('/');
 
   const useIsLoged = () => {
     if(localStorage.getItem('token')) {
       AuthService.getUser()
-      .then(({ data, status }) => {
-        if (status === 200) {
-          localStorage.setItem('token', data.token);
-          dispathCustom("SET_TOKEN", data.token, "auth")
-          dispathCustom("SET_USER", data.user, "auth")
-          dispathCustom("SET_IS_AUTH", true, "auth");
-          dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
-        }
-      }).catch(e => {
-        console.error(e);
-      });
+        .then(({ data, status }) => {
+          if (status === 200) {
+            localStorage.setItem('token', data.token);
+            navigate('/' + urlParts[1]);
+            dispathCustom("SET_TOKEN", data.token, "auth")
+            dispathCustom("SET_USER", data.user, "auth")
+            dispathCustom("SET_IS_AUTH", true, "auth");
+            dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
+          }
+        }).catch(e => {
+          console.error(e);
+        });
     }
   }
 
@@ -41,6 +45,7 @@ export const useAuth = () => {
           dispathCustom("SET_IS_AUTH", true, "auth");
           dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
           toast.success('Login correcto!!');
+          navigate('/');
         }
     }).catch(e => {
       console.error(e);
@@ -66,6 +71,7 @@ export const useAuth = () => {
             dispathCustom("SET_IS_AUTH", true, "auth");
             dispathCustom("SET_IS_ADMIN", data.user.type === 'admin', "auth");
             toast.success('Registro correcto!!');
+            navigate('/');
           }
       }).catch(e => {
         console.error(e);

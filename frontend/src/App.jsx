@@ -1,11 +1,13 @@
-import HomePage from './pages/client/HomePage';
-import DashboardPage from './pages/admin/DashboardPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { StationsProvider } from './context/stations/StationsProvider';
 import { TrainsProvider } from './context/trains/TrainsProvider';
 import { ChairsProvider } from './context/chairs/ChairsProvider';
 import { AuthProvider } from './context/Auth/AuthProvider';
+
+import HomePage from './pages/client/HomePage';
+import DashboardPage from './pages/admin/DashboardPage';
 
 import Stations from './pages/client/StationsPage';
 import CreateStationsPage from './pages/admin/stations/CreateStationsPage';
@@ -22,10 +24,13 @@ import EditChairsPage from './pages/admin/chairs/EditChairsPage';
 
 import LoginPage from './pages/client/LoginPage';
 import RegisterPage from './pages/client/RegisterPage';
-import { Toaster } from 'react-hot-toast';
+
 import HeaderPage from './pages/HeaderPage';
 
+import ProfilePage from './pages/client/ProfilePage';
+
 import AdminGuard from './services/guards/AdminGuard';
+import AuthGuard from './services/guards/AuthGuard';
 
 function App() { 
   return (
@@ -54,6 +59,9 @@ function App() {
                     <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
                     <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
                     <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+                  </Route>
+                  <Route element={<AuthGuard />}>
+                    <Route path='/profile' element={<ProfilePage />} />
                   </Route>
                 </Routes>
                 <Toaster

@@ -1,5 +1,5 @@
 import { AuthContext } from "../../context/Auth/AuthProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminGuard = () => {
