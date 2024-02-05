@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'stations',
     'users',
+    'rent',
 ]
 
 MIDDLEWARE = [
