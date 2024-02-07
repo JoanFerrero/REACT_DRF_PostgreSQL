@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Tren.css'; // Importa el archivo CSS para los estilos
 
-function Tren() {
+const Tren = ({trip}) => {
+  console.log(trip)
   return (
     <>
       <div className="row mx-2 mt-2 justify-content-md-center" >
@@ -20,8 +21,8 @@ function Tren() {
         <div className="col-sm">
           <div className="card">
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">Salida: Valencia</li>
-              <li className="list-group-item">LLegada: Madrid</li>
+              <li className="list-group-item">Salida: {trip.exit_station.name}</li>
+              <li className="list-group-item">LLegada: {trip.arrival_station.name}</li>
             </ul>
             <div className="card-header">
               Precio Total: 30€

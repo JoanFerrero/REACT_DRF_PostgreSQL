@@ -1,7 +1,9 @@
-import React, { useEffect } from "react"
-import { useTrips } from "../../hooks/useTrips"
+import React, { useEffect } from "react";
+import { useTrips } from "../../hooks/useTrips";
+import { useNavigate } from "react-router-dom";
 
 const CardTrips = ({trip}) => {
+  const navigate = useNavigate();
   const { useSetStations, exit, arrival } = useTrips()
   useEffect(() => {
     const data = {
@@ -10,6 +12,11 @@ const CardTrips = ({trip}) => {
     }
     useSetStations(data)
   }, [])
+
+  const redirects = {
+    detail: (id) => navigate('/trips/' + id),
+  }
+
   return (
     <>
       <div className="row g-0 bg-light position-relative mx-2">
@@ -20,7 +27,7 @@ const CardTrips = ({trip}) => {
           <h5 className="mt-0">Salida: {exit.name}</h5>
           <h5 className="mt-0">Llegada: {arrival.name}</h5>
           <p>Dia: {trip.date} - Duracion: {trip.time} h</p>
-          <a className="stretched-link">Ver sillas disponibles</a>
+          <a className="stretched-link" onClick={() => redirects.detail(trip.id)}>Ver sillas disponibles</a>
         </div>
       </div>
     </>

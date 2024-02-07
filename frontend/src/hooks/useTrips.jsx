@@ -1,28 +1,21 @@
-import { useCallback, useState, useContext } from "react";
+import { useCallback, useState, useContext,useEffect } from "react";
 import TrainsService from "../services/TrainsServices";
 import { useContextHook } from "./useContextHook";
 import { useNavigate } from "react-router-dom";
 import { StationsContext } from "../context/stations/StationsProvider";
+import TripsService from "../services/TripsService";
 
 export const useTrips = () => {
-  const navigate = useNavigate()
-  const { dispathCustom } = useContextHook()
   const [ exit, setExit ] = useState({});
   const [ arrival, setArrival ] = useState({});
   const { StationsState } = useContext(StationsContext);
+  const [trip, setTrip] = useState()
 
-  const useAddTrains = useCallback(data => {
-    const train = {
-      "name": data.name,
-      "desc": data.desc,
-      "image": data.image,
-      "status": data.status,
-    }
-    TrainsService.createTrains(train)
+  const useOneTrain = useCallback(data => {
+    TripsService.getOneTrip(data)
       .then(({ data, status }) => {
         if (status === 200) {
-          dispathCustom('ADD_TRAIN', data, 'trains')
-          navigate('/dashboard/listtrains')
+          setTrip(data)
         }
     }).catch(e => {
       console.error(e);
@@ -34,5 +27,5 @@ export const useTrips = () => {
     setArrival(StationsState.stations.find(station => station.id === data.arrival))
   }, [])
   
-  return { useAddTrains, useSetStations, exit, arrival }
+  return { useSetStations, exit, arrival, useOneTrain, trip }
 }
