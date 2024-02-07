@@ -1,11 +1,11 @@
-import ListStations from '../../components/client/ListStations'
+import ListTrips from "../../components/client/ListTrips";
 import MapStations from "../../components/client/MapStations";
-const Home = () => {
+const TripsPage = () => {
   return (
     <>
       <div className="row">
         <div className="col-sm">
-          <ListStations />
+          <ListTrips />
         </div>
         <div className="col-sm">
           <MapStations />
@@ -15,4 +15,4 @@ const Home = () => {
   )
 }
   
-export default Home
+export default TripsPage

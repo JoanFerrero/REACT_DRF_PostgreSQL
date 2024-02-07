@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import CardStations from './CardStations'
 import Search from "./Search";
 import { StationsContext } from "../../context/stations/StationsProvider";

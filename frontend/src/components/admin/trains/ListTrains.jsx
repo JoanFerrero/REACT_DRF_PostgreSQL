@@ -1,11 +1,16 @@
 import { useContext } from "react";
 import { TrainsContext } from "../../../context/trains/TrainsProvider";
-import { useTrains } from "../../../hooks/useTrains"
+import { useTrains } from "../../../hooks/useTrains";
+import { useNavigate } from "react-router-dom";
 
 const ListTrains = () => {
-
+  const navigate = useNavigate();
   const { TrainsState } = useContext(TrainsContext);
-  const { useDeleteTrain } = useTrains()
+  const { useDeleteTrain } = useTrains();
+
+  const redirects = {
+    edit: (slug) => navigate('/dashboard/updatetrains/' + slug),
+  }
   
   return (
     <table className="table table-striped">
@@ -26,7 +31,7 @@ const ListTrains = () => {
             <td>{trains.name}</td>
             <td>{trains.desc}</td>
             <td>{trains.status}</td>
-            <td><button><a href={'/dashboard/updatetrains/' + trains.slug}>Editar</a></button></td>
+            <td><button><a onClick={() => redirects.edit(trains.slug)}>Editar</a></button></td>
             <td><button onClick={() => useDeleteTrain(trains.slug)}>Borrar</button></td>
           </tr>
         ))}

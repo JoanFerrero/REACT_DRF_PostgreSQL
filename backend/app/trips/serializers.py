@@ -7,17 +7,6 @@ class TripSerializer(serializers.ModelSerializer):
         model = Trips
         fields = ('id', 'exit_station_id', 'arrival_station_id', 'train_id', 'date', 'time')
     
-    def to_trip(self, instance):
-        return {
-            "id": instance.id,
-            "slug": instance.slug,
-            "exit_station_id": instance.exit_station_id,
-            "arrival_station_id": instance.arrival_station_id,
-            "train_id": instance.train_id,
-            "date": instance.date,
-            "time": instance.time
-        }
-    
     def trip(context):
 
         if context['arrival_station'] == context['exit_station']:

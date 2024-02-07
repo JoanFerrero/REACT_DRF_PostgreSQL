@@ -1,11 +1,16 @@
 import { useContext } from "react";
 import { StationsContext } from "../../../context/stations/StationsProvider";
 import { useStations } from "../../../hooks/useStations";
+import { useNavigate } from "react-router-dom";
 
 const ListStations = () => {
-
+  const navigate = useNavigate();
   const { StationsState } = useContext(StationsContext);
   const { useDeleteStation } = useStations();
+
+  const redirects = {
+    edit: (slug) => navigate('/dashboard/updatestations/' + slug),
+  }
   
   return (
     <table className="table table-striped">
@@ -26,7 +31,7 @@ const ListStations = () => {
             <td>{station.name}</td>
             <td>{station.desc}</td>
             <td>{station.status}</td>
-            <td><button><a href={'/dashboard/updatestations/' + station.slug}>Editar</a></button></td>
+            <td><button><a onClick={() => redirects.edit(station.slug)}>Editar</a></button></td>
             <td><button onClick={() => useDeleteStation(station.slug)}>Borrar</button></td>
           </tr>
         ))}

@@ -20,4 +20,7 @@ class TripView(viewsets.GenericViewSet):
         trips = Trips.objects.all()
         trips_serializer = TripSerializer(trips, many=True)
         return Response(trips_serializer.data)
+    
+    def viewOneTrip(self, request):
+        return 'hola'
 

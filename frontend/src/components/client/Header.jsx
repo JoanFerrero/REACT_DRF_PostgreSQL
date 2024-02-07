@@ -13,7 +13,7 @@ const Header = () => {
 
   const redirects = {
     home: () => navigate('/'),
-    stations: () => navigate('/stations'),
+    trips: () => navigate('/trips'),
     dashboard: () => navigate('/dashboard'),
     login: () => navigate('/login'),
     register: () => navigate('/register'),
@@ -54,7 +54,7 @@ const Header = () => {
                 </a>
               </li>
               <a className="nav-link" onClick={() => redirects.home()}>Home</a>
-              <a className="nav-link" onClick={() => redirects.stations()}>Stations</a>
+              <a className="nav-link" onClick={() => redirects.trips()}>Trips</a>
               {isAdminUser}
               {isUser}
             </ul>
