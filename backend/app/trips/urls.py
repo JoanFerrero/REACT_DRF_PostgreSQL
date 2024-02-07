@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import TripView
+from .views import TripView, TripViewAdmin
 
 urlpatterns = [
 
     # RENT
-    path('trip', TripView.as_view({'post': 'createTrip'})),
+    path('trip', TripViewAdmin.as_view({'post': 'createTrip'})),
     path('trips', TripView.as_view({'get': 'viewTrip'})),
-  
+    path('trips/<str:id>', TripView.as_view({'get': 'viewOneTrip'})),
 ]

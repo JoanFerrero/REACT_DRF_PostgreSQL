@@ -1,11 +1,22 @@
 from rest_framework import serializers
 from .models import Trips
-from stations.models import Station, Train
+from stations.models import Station, Train, Chair
+from stations.serializers import ChairSerializer, StationSerializer, TrainSerializer
 
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trips
         fields = ('id', 'exit_station_id', 'arrival_station_id', 'train_id', 'date', 'time')
+    
+    def to_Trips(instance):
+        return {
+            'id': instance.id,
+            'exit_station_id': instance.exit_station_id,
+            'arrival_station_id': instance.arrival_station_id,
+            'train_id': instance.train_id,
+            'date': instance.date,
+            'time': instance.time,
+        }
     
     def trip(context):
 
@@ -48,3 +59,48 @@ class TripSerializer(serializers.ModelSerializer):
             'date': context['date'],
             'time': context['time']
         }
+    
+    def allTrips(context):
+        try:
+            trips = Trips.objects.all()  
+        except:
+            raise serializers.ValidationError('*Trip not found.')
+        
+        return trips
+    
+class TripSerializerOne(serializers.ModelSerializer):
+    class Meta:
+        model = Trips
+        fields = ('id', 'exit_station', 'arrival_station', 'train','chairs' 'date', 'time')
+
+    def to_OneTrip(instance):
+
+        try:
+            chair = Chair.objects.filter(train=instance.train_id)
+            chair_serializer = ChairSerializer(chair, many=True)
+
+            exit_station = Station.objects.get(id=instance.exit_station_id)
+            exit_station_serialazer = StationSerializer(exit_station)
+
+            arrival_station = Station.objects.get(id=instance.arrival_station_id)
+            arrival_station_serialazer = StationSerializer(arrival_station)
+        except:
+            raise serializers.ValidationError('*Not found.')
+        
+        return {
+            'id': instance.id,
+            'exit_station': exit_station_serialazer.data,
+            'arrival_station': arrival_station_serialazer.data,
+            'train': instance.train_id,
+            'chairs': chair_serializer.data,
+            'date': instance.date,
+            'time': instance.time,
+        }
+    
+    def oneTrip(context):
+        try:
+            trip = Trips.objects.get(id=context)    
+        except:
+            raise serializers.ValidationError('*Trip not found.')
+
+        return trip

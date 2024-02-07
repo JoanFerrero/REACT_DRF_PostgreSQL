@@ -37,7 +37,7 @@ class ChairSerializer(serializers.ModelSerializer):
         model = Chair
         fields = ['id', 'slug','name', 'image', 'status', 'type', 'train', 'chair_number']
 
-    def to_chair(self, instance):
+    def to_chair(instance):
         return {
             "id": instance.id,
             "slug": instance.slug,
