@@ -4,7 +4,7 @@ from .models import User, Profile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ( 'id', 'uuid', 'username', 'email', 'password', 'type', 'is_superuser')
+        fields = ( 'id', 'uuid', 'username', 'email', 'password', 'type', 'is_superuser', 'chairs')
 
     def register(context):
         username = context['username']
@@ -42,6 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
         if not user.check_password(password):
             raise serializers.ValidationError('*Wrong email or password.')
         
+
         return {
             'user': {
                 'id': user.id,
@@ -49,6 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
                 'email': user.email,
                 'type': user.type
             },
+            'chairs': {},
             'token': user.token,
             'ref_token': user.ref_token,
         }
@@ -68,6 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
                 'email': user.email,
                 'type': user.type
             },
+            'chairs': {},
             'token': user.token,
             'ref_token': user.ref_token,
         }
