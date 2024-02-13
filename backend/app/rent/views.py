@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.permissions import (AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser)
+from rest_framework.permissions import (IsAuthenticated)
 from users.serializers import UserSerializer
 from .serializers import RentSerializer, RentSerializerAll
 from stations.models import Chair
