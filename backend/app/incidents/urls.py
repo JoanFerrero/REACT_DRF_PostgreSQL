@@ -3,24 +3,26 @@ from .views import IncidentsTrain, IncidentsChair, IncidentsViewAdmin, Notificat
 
 urlpatterns = [
     # INCIDENTS TRAINS
-    path('incidentTrain', IncidentsTrain.as_view({'get': 'getIncidents'})),
-    path('incidentTrain', IncidentsTrain.as_view({'post': 'postIncident'})),
+    path('incidenttget', IncidentsTrain.as_view({'get': 'getIncidents'})),
+    path('incidentt', IncidentsTrain.as_view({'post': 'postIncident'})),
+    path('incidenttdelet/<str:slug>', IncidentsTrain.as_view({'delete': 'deletIncident'})),
 
     # INCIDENTS CHAIRS
-    path('incidentsChair', IncidentsChair.as_view({'get': 'getIncidents'})),
-    path('incidentsChair', IncidentsChair.as_view({'post': 'postIncident'})),
+    path('incidentscget', IncidentsChair.as_view({'get': 'getIncidents'})),
+    path('incidentsc', IncidentsChair.as_view({'post': 'postIncident'})),
+    path('incidentsc/<str:slug>', IncidentsChair.as_view({'delete': 'deletIncident'})),
 
     # VIEW INCIDENTS ADMIN TRAINS
     path('alltrainincidents', IncidentsViewAdmin.as_view({'get': 'getAllIncidentsTrains'})),
-    path('updatetrainincidents', IncidentsViewAdmin.as_view({'put': 'updateIncidentsTrains'})),
     path('deletetrainincidents', IncidentsViewAdmin.as_view({'delete': 'deleteIncidentsTrains'})),
 
     # VIEW INCIDENTS ADMIN CHAIRS
     path('allchairincidents', IncidentsViewAdmin.as_view({'get': 'getAllIncidentsChairs'})),
-    path('updatechairincidents', IncidentsViewAdmin.as_view({'put': 'updateIncidentsChairs'})),
     path('deletechairincidents', IncidentsViewAdmin.as_view({'delete': 'deleteIncidentsChairs'})),
 
     # NOTIDICATION
-    path('notifivations', NotificationsUser.as_view({'get': 'getNotifications'})),
-    path('notifivations', NotificationsUser.as_view({'post': 'postIncident'})),
+    path('notifications', NotificationsUser.as_view({'get': 'getNotifications'})),
+    path('notifications', NotificationsUser.as_view({'post': 'postIncident'})),
+    path('notifications/<str:slug>', NotificationsUser.as_view({'put': 'putNotification'})),
+    path('notifications/<str:slug>', NotificationsUser.as_view({'delete': 'deleteNotification'})),
 ]
