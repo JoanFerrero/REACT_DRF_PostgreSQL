@@ -52,20 +52,30 @@ class IncidentsChair(viewsets.GenericViewSet):
 class IncidentsViewAdmin(viewsets.GenericViewSet):
     permission_classes = [IsAdmin]
 
+    # Trains
     def getAllIncidentsTrains(self, request):
         incidents = IncidenceTrain.objects.all()
         incidents_serializer = IncidentsTrainSerializer(incidents, many=True)
         return Response(incidents_serializer.data)
+    
+    def updateIncidentsTrains(self, request, id):
+        context = request.data
+        incidence = IncidentsTrainSerializer.updateStatus(context, id)
+        return Response(IncidentsTrainSerializer.to_incidence_train(incidence))
     
     def deleteIncidentTrains(self, request, slug):
         incident = IncidenceTrain.objects.get(id=slug)
         incident.delete()
         return Response({'data': 'Incident deleted successfully'})
     
+    # Chairs
     def getAllIncidentsChairs(self, request):
         incidents = IncidenceChair.objects.all()
         incidents_serializer = IncidentsChairSerializer(incidents, many=True)
         return Response(incidents_serializer.data)
+    
+    def updateIncidentsChairs(self, request, id):
+        return Response()
     
     def deleteIncidentChairs(self, request, slug):
         incident = IncidenceChair.objects.get(id=slug)
@@ -79,11 +89,8 @@ class NotificationsUser(viewsets.GenericViewSet):
         username = request.user
         serializer_context = { 'username': username }
         notifications = NotificationSerializer.getNotification(context=serializer_context)
-        notifications_serialize = NotificationSerializer(notifications, many=True)
-        return Response(notifications_serialize.data)
-    
-    def postNotification(self, request):
-        return Response('hola')
+        return Response(notifications)
+
     
     def deleteNotification(self, request, slug):
         username = request.user

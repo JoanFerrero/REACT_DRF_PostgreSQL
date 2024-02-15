@@ -9,6 +9,16 @@ class IncidentsTrainSerializer(serializers.ModelSerializer):
         model = IncidenceTrain
         fields = ( 'id', 'title', 'status', 'desc', 'user', 'train')
 
+    def to_incidence_train(instance):
+        return ({
+            "id": instance.id,
+            "title": instance.title,
+            "status": instance.status,
+            "desc": instance.desc,
+            "user": instance.user_id,
+            "train": instance.train_id
+        })
+
     def getIncidents(context):
         username = context['username']
 
@@ -65,6 +75,31 @@ class IncidentsTrainSerializer(serializers.ModelSerializer):
             'status': 'pending',
             'desc': desc,
         }
+    
+    def updateStatus(context, id):
+        new_status = context['status']
+        incidence = IncidenceTrain.objects.get(id=id)
+
+        if incidence is None:
+            raise serializers.ValidationError('Incident not found')
+
+        if (incidence.status == 'resolved'):    
+            raise serializers.ValidationError('The incidence is already resolved')
+
+        if (new_status == 'pending'):
+            incidence.status = 'pending'
+        elif (new_status == 'in_progress'):
+            incidence.status = 'in_progress'
+            Notification.objects.create(desc="Your slot incidence: " + str(incidence.title) + ", is in progress.", user_id=incidence.user_id, seen=False)
+        elif (new_status == 'resolved'):
+            incidence.status = 'resolved'
+            Notification.objects.create(desc="Your slot incidence: " + str(incidence.title) + ", is resolved. Thank you!", user_id=incidence.user_id, seen=False)
+        else:
+            raise serializers.ValidationError('The incidence is closed')
+
+        incidence.save()
+        return incidence
+
 
 class IncidentsChairSerializer(serializers.ModelSerializer):
     class Meta:
@@ -104,7 +139,7 @@ class IncidentsChairSerializer(serializers.ModelSerializer):
 
         except:
             raise serializers.ValidationError('*Train not found.')
-        
+
         try:
             user = User.objects.get(username=context['username'])
 
@@ -138,9 +173,20 @@ class NotificationSerializer(serializers.ModelSerializer):
         except:
             raise serializers.ValidationError('*User not found.')
         
-        incidents = Notification.objects.all()
+        notifications = Notification.objects.filter(user_id=user.id)
 
-        return incidents
+        objetos_serializados = []
+        
+        for notification in notifications:
+            datos_serializados = {
+                'id': notification.id,
+                'seen': notification.seen,
+                'desc': notification.desc,
+                'user': notification.user_id
+            }
+            objetos_serializados.append(datos_serializados)
+        
+        return objetos_serializados
     
     def deleteNotification(context):
         try:
@@ -149,7 +195,7 @@ class NotificationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('*User not found.')
         
         try:
-            incident = IncidenceChair.objects.get(id=context['slug'])
+            incident = IncidenceChair.objects.get(id=context['slug'], user_id=user.id)
             incident.delete()
         except:
             raise serializers.ValidationError('*Notification not found.')

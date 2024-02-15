@@ -12,16 +12,18 @@ urlpatterns = [
     path('incidentsc', IncidentsChair.as_view({'post': 'postIncident'})),
     path('incidentsc/<str:slug>', IncidentsChair.as_view({'delete': 'deletIncident'})),
 
-    # VIEW INCIDENTS ADMIN TRAINS
+
+    # INCIDENTS ADMIN TRAINS
     path('alltrainincidents', IncidentsViewAdmin.as_view({'get': 'getAllIncidentsTrains'})),
+    path('updatetrainincident/<str:id>', IncidentsViewAdmin.as_view({"put": "updateIncidentsTrains"})),
     path('deletetrainincidents', IncidentsViewAdmin.as_view({'delete': 'deleteIncidentsTrains'})),
 
     # VIEW INCIDENTS ADMIN CHAIRS
     path('allchairincidents', IncidentsViewAdmin.as_view({'get': 'getAllIncidentsChairs'})),
+    path('updatechairincident/<str:id>', IncidentsViewAdmin.as_view({"put": "getAllIncidentsChairs"})),
     path('deletechairincidents', IncidentsViewAdmin.as_view({'delete': 'deleteIncidentsChairs'})),
 
     # NOTIDICATION
     path('notifications', NotificationsUser.as_view({'get': 'getNotifications'})),
-    path('notifications', NotificationsUser.as_view({'post': 'postNotification'})),
     path('notifications/<str:slug>', NotificationsUser.as_view({'delete': 'deleteNotification'})),
 ]
