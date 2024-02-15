@@ -1,11 +1,17 @@
 import { useCallback, useState } from "react";
 
 export const useProfile = () => {
-  const [page, setpage ] = useState('profile');
+  const [page, setPage] = useState('profile');
+  const [rent, setRent] = useState([])
 
   const useChangePage = useCallback(data => {
-    setpage(data)
+    setPage(data)
+  }, [])
+
+  const useChangePageData = useCallback((page, data) => {
+    setPage(page)
+    setRent(data)
   }, [])
   
-  return { useChangePage, page }
+  return { useChangePage,useChangePageData, page, rent }
 }

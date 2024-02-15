@@ -7,11 +7,12 @@ import Bookings from "./Bookings";
 import DataProfile from "./DataProfile";
 import { useIncidents } from "../../../hooks/useIncidents";
 import Incidents from "./Incidents";
+import FormIncidents from "../incidents/FormIncidents";
 
 const ProfileUser = () => {
-  const { page, useChangePage } = useProfile();
+  const { page, rent, useChangePage, useChangePageData } = useProfile();
   const { rents, useSetRent } = useRent();
-  const { incidents, useSetIncidents} = useIncidents();
+  const { incidents, useSetIncidents, usePostIncidents} = useIncidents();
 
   useEffect(() => {
     useSetRent();
@@ -36,7 +37,7 @@ const ProfileUser = () => {
               {rents !== undefined && rents.length > 0 ? (
                 <>
                   {rents.map((rent) => (
-                    <Bookings rent={rent} key={rent.id}/>
+                    <Bookings rent={rent} key={rent.id} setPageData={(page, data) => useChangePageData(page, data)}/>
                   ))}
                 </>
               ) : null }
@@ -53,6 +54,11 @@ const ProfileUser = () => {
               ) : null }
             </>
           ): null}
+          {page === 'formincidents' ? (
+            <>
+              <FormIncidents data={rent} sendData={(data) => usePostIncidents(data)}/>
+            </>
+          ) : null}
         </div>
       </div>
     </div>
