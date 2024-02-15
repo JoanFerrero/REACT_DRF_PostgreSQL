@@ -1,5 +1,5 @@
-import ListTrips from "../../components/client/ListTrips";
-import MapStations from "../../components/client/MapStations";
+import ListTrips from "../../components/client/lists/ListTrips";
+import MapStations from "../../components/client/cards/MapStations";
 const TripsPage = () => {
   return (
     <>

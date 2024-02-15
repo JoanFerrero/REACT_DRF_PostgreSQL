@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import CardTrains from './CardTrains'
-import Search from "./Search";
-import { TrainsContext } from "../../context/trains/TrainsProvider";
+import Search from "../Search";
+import { TrainsContext } from "../../../context/trains/TrainsProvider";
 
 const ListTrains = () => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useTrips } from "../../hooks/useTrips";
+import { useTrips } from "../../../hooks/useTrips";
 import { useNavigate } from "react-router-dom";
 
 const CardTrips = ({trip}) => {

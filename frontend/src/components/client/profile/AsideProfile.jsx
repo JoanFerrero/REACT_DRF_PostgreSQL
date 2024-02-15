@@ -1,7 +1,7 @@
 const AsideProfile = ({name, setPage}) => {
 
   const changepage = (page) => {
-    setPage(page)
+    setPage(page);
   }
 
   return (
@@ -25,7 +25,7 @@ const AsideProfile = ({name, setPage}) => {
                 <span className="fa fa-circle pr-1" id="red"></span>Reservas
               </a>
             </li>
-            <li className="li list-group-item list-group-item-action mb-2 rounded" onClick={() => changepage('profile')}>
+            <li className="li list-group-item list-group-item-action mb-2 rounded" onClick={() => changepage('incidents')}>
               <a>
                 <span className="fa fa-circle pr-1" id="red"></span>Incidencias
               </a>

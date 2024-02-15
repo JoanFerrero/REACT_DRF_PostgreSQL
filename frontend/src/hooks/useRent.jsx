@@ -2,12 +2,12 @@ import { useCallback, useState } from "react";
 import RentService from "../services/RentServices";
 
 export const useRent = () => {
-  const [rents, setRents] = useState()
+  const [rents, setRents] = useState([])
   const useCreateRent = useCallback(data => {
     RentService.postRent(data)
       .then(({data, status }) => {
         if (status === 200) {
-          console.log(data)
+          setRents(rents.push(data))
         }
     }).catch(e => {
       console.error(e);

@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import CardTrips from './CardTrips'
-import Search from "./Search";
-import { TripsContext } from "../../context/trips/TripsProvider";
+import CardTrips from '../cards/CardTrips';
+import Search from "../Search";
+import { TripsContext } from "../../../context/trips/TripsProvider";
 
 const ListTrips = () => {
 

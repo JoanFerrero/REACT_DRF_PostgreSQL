@@ -82,7 +82,10 @@ class NotificationsUser(viewsets.GenericViewSet):
         notifications_serialize = NotificationSerializer(notifications, many=True)
         return Response(notifications_serialize.data)
     
-    def deleteNotification(seld, request, slug):
+    def postNotification(self, request):
+        return Response('hola')
+    
+    def deleteNotification(self, request, slug):
         username = request.user
         serializer_context = { 'username': username, 'slug': slug }
         notifications = NotificationSerializer.deleteNotification(context=serializer_context)

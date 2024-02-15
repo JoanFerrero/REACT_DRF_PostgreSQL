@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import CardStations from './CardStations'
-import Search from "./Search";
-import { StationsContext } from "../../context/stations/StationsProvider";
+import Search from "../Search";
+import { StationsContext } from "../../../context/stations/StationsProvider";
 
 const ListStations = () => {
 

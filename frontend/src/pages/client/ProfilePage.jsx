@@ -1,4 +1,4 @@
-import ProfileUser from "../../components/client/ProfileUser";
+import ProfileUser from "../../components/client/profile/ProfileUser";
 const ProfilePage = () => {
   return (
     <>
