@@ -5,6 +5,5 @@ urlpatterns = [
 
     # RENT
     path('rent/<str:slug>', RentView.as_view({'post': 'rent'})),
-    path('rents', RentView.as_view({'get': 'viewRent'})),
   
 ]

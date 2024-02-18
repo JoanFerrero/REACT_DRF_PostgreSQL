@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import DetailTren from "../../components/client/DetailsTrain"
+import Tren from "../../components/client/DetailsTrain"
 import { useTrips } from "../../hooks/useTrips"
 const DetailsPage = () => {
   const { useOneTrain, trip} = useTrips();
@@ -10,7 +10,7 @@ const DetailsPage = () => {
 
   return (
     trip !== undefined ? (
-      <DetailTren trip={trip}/>
+      <Tren trip={trip}/>
     ): (
       <h1>Cargando</h1>
     )

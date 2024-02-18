@@ -27,5 +27,5 @@ export const useTrips = () => {
     setArrival(StationsState.stations.find(station => station.id === data.arrival))
   }, [])
   
-  return { useSetStations, useOneTrain, exit, arrival, trip }
+  return { useSetStations, exit, arrival, useOneTrain, trip }
 }

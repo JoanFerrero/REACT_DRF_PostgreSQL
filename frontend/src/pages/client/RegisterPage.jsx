@@ -1,4 +1,4 @@
-import FormRegister from "../../components/client/login/FormRegister";
+import FormRegister from "../../components/client/FormRegister";
 import { useAuth } from "../../hooks/useAuth";
 
 const RegisterPage = () => {

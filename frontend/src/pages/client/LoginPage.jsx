@@ -1,4 +1,4 @@
-import FormLogin from "../../components/client/login/FormLogin";
+import FormLogin from "../../components/client/FormLogin";
 import { useAuth } from "../../hooks/useAuth";
 
 const LoginPage = () => {
