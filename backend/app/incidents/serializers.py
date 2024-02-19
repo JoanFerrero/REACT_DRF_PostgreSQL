@@ -115,7 +115,7 @@ class IncidentsChairSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('*User not found.')
         
         try:
-            incidents = IncidenceTrain.objects.filter(user=user.id)
+            incidents = IncidenceChair.objects.filter(user=user.id)
         except:
             raise serializers.ValidationError('*User not found.')
         
@@ -149,7 +149,7 @@ class IncidentsChairSerializer(serializers.ModelSerializer):
         title = incident['title']
         desc = incident['desc']
         
-        incident = IncidenceTrain.objects.create(
+        incident = IncidenceChair.objects.create(
             title = title,
             status = 'pending',
             desc = desc,
@@ -164,7 +164,7 @@ class IncidentsChairSerializer(serializers.ModelSerializer):
     
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = IncidenceChair
+        model = Notification
         fields = ( 'id', 'seen', 'desc', 'user')
 
     def getNotification(context):

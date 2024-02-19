@@ -12,7 +12,7 @@ import FormIncidents from "../incidents/FormIncidents";
 const ProfileUser = () => {
   const { page, rent, useChangePage, useChangePageData } = useProfile();
   const { rents, useSetRent } = useRent();
-  const { incidents, useSetIncidents, usePostIncidents} = useIncidents();
+  const { incidentsT, incidentsC, useSetIncidents, usePostIncidents} = useIncidents();
 
   useEffect(() => {
     useSetRent();
@@ -45,13 +45,28 @@ const ProfileUser = () => {
           ) : null}
           {page === 'incidents' ? (
             <>
-              {incidents !== undefined && incidents.length > 0 ? (
-                <>
-                  {incidents.map((incident) => (
-                    <Incidents incident={incident} key={incident.id}/>
-                  ))}
-                </>
-              ) : null }
+              <div className="row">
+                <div className="col-sm">
+                  <h1>Trenes</h1>
+                  {incidentsT !== undefined && incidentsT.length > 0 ? (
+                    <>
+                      {incidentsT.map((incident) => (
+                        <Incidents incident={incident} key={incident.id}/>
+                      ))}
+                    </>
+                  ) : null }
+                </div>
+                <div className="col-sm">
+                <h1>Sillas</h1>
+                  {incidentsC !== undefined && incidentsC.length > 0 ? (
+                    <>
+                      {incidentsC.map((incident) => (
+                        <Incidents incident={incident} key={incident.id}/>
+                      ))}
+                    </>
+                  ) : null }
+                </div>
+              </div>
             </>
           ): null}
           {page === 'formincidents' ? (

@@ -5,6 +5,7 @@ const Incidents = ({incident}) => {
         <div className="card-body text-primary">
           <h5 className="card-title">{incident.title}</h5>
           <p className="card-text">{incident.desc}</p>
+          <p className="card-text">Estado: {incident.status}</p>
         </div>
       </div>
     </>

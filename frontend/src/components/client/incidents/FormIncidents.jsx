@@ -22,6 +22,7 @@ const FormIncidents = ({data, sendData}) => {
       option: dataForm.option,
       data: data
     }
+    console.log(dataI)
     sendData(dataI)
   }
   return (
@@ -33,8 +34,8 @@ const FormIncidents = ({data, sendData}) => {
             <form onSubmit={handleSubmit(submitForm)}>
               <div className="form-group">
                 <select className="form-control" id="tipo"  {...register('option')}>
-                  <option value="tren">Tren</option>
-                  <option value="silla">Silla</option>
+                  <option value="train">Tren</option>
+                  <option value="chair">Silla</option>
                 </select>
               </div>
               <div className="form-group">
