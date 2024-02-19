@@ -10,7 +10,7 @@ const AsideProfile = ({name, setPage}) => {
                 <span className="fa fa-circle pr-1" id="red"></span>Perfil
               </a>
             </li>
-            <li className="li list-group-item list-group-item-action mb-2 rounded" onClick={() => setPage('profile')}>
+            <li className="li list-group-item list-group-item-action mb-2 rounded" onClick={() => setPage('notifications')}>
               <a>
                 <span className="fa fa-circle pr-1" id="red"></span>Notificaciones
               </a>

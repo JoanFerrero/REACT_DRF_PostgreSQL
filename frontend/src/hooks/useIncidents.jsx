@@ -20,7 +20,6 @@ export const useIncidents = () => {
       .then(({data, status}) => {
         if (status === 200) {
           setIncidentsC(data)
-          navigate('/profile');
         }
     }).catch(e => {
       console.error(e);

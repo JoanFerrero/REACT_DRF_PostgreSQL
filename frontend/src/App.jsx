@@ -5,6 +5,7 @@ import { StationsProvider } from './context/stations/StationsProvider';
 import { TrainsProvider } from './context/trains/TrainsProvider';
 import { ChairsProvider } from './context/chairs/ChairsProvider';
 import { AuthProvider } from './context/Auth/AuthProvider';
+import { NotificationsProvider } from './context/Notifications/NotificationsProvider'
 
 import HomePage from './pages/client/HomePage';
 import DashboardPage from './pages/admin/DashboardPage';
@@ -38,45 +39,47 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <StationsProvider>
-          <TrainsProvider>
-            <ChairsProvider>
-              <TripsProvider>
-                <HeaderPage>
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/trips" element={<Trips />} />
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/register' element={<RegisterPage />} />
-                    <Route element={<AdminGuard/>}>
-                      <Route path="/dashboard" element={<DashboardPage/>} />
+        <NotificationsProvider>
+          <StationsProvider>
+            <TrainsProvider>
+              <ChairsProvider>
+                <TripsProvider>
+                  <HeaderPage>
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/trips" element={<Trips />} />
+                      <Route path='/login' element={<LoginPage />} />
+                      <Route path='/register' element={<RegisterPage />} />
+                      <Route element={<AdminGuard/>}>
+                        <Route path="/dashboard" element={<DashboardPage/>} />
 
-                      <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
-                      <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
-                      <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
+                        <Route path="/dashboard/createstations" element={<CreateStationsPage/>} />
+                        <Route path="/dashboard/liststations" element={<ListStationsPage/>} />
+                        <Route path="/dashboard/updatestations/:slug" element={<EditStationPage/>} />
 
-                      <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
-                      <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
-                      <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
+                        <Route path="/dashboard/listtrains" element={<ListTrainsPage />} />
+                        <Route path="/dashboard/createtrains" element={<CreateTrainsPage />} />
+                        <Route path="/dashboard/updatetrains/:slug" element={<EditTrainsPage />} />
 
-                      <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
-                      <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
-                      <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
-                    </Route>
-                    <Route element={<AuthGuard />}>
-                      <Route path='/profile' element={<ProfilePage />} />
-                      <Route path="/trips/:slug" element={<DetailsPage />} />
-                    </Route>
-                  </Routes>
-                  <Toaster
-                    position="top-right"
-                    reverseOrder={false}
-                  />
-                </HeaderPage>
-              </TripsProvider>
-            </ChairsProvider>
-          </TrainsProvider>
-        </StationsProvider>
+                        <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
+                        <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
+                        <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+                      </Route>
+                      <Route element={<AuthGuard />}>
+                        <Route path='/profile' element={<ProfilePage />} />
+                        <Route path="/trips/:slug" element={<DetailsPage />} />
+                      </Route>
+                    </Routes>
+                    <Toaster
+                      position="top-right"
+                      reverseOrder={false}
+                    />
+                  </HeaderPage>
+                </TripsProvider>
+              </ChairsProvider>
+            </TrainsProvider>
+          </StationsProvider>
+        </NotificationsProvider>
       </AuthProvider>
     </BrowserRouter>
   )

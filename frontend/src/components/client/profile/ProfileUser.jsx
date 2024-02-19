@@ -8,15 +8,18 @@ import DataProfile from "./DataProfile";
 import { useIncidents } from "../../../hooks/useIncidents";
 import Incidents from "./Incidents";
 import FormIncidents from "../incidents/FormIncidents";
+import Notification from "../notifications/Notification";
+import { useNotification } from "../../../hooks/useNotification";
 
 const ProfileUser = () => {
   const { page, rent, useChangePage, useChangePageData } = useProfile();
   const { rents, useSetRent } = useRent();
   const { incidentsT, incidentsC, useSetIncidents, usePostIncidents} = useIncidents();
-
+  const { notifications, getNotifications } = useNotification()
   useEffect(() => {
     useSetRent();
     useSetIncidents();
+    getNotifications();
   }, [])
 
   const { AuthState } = useContext(AuthContext);
@@ -74,6 +77,17 @@ const ProfileUser = () => {
               <FormIncidents data={rent} sendData={(data) => usePostIncidents(data)}/>
             </>
           ) : null}
+          {page === 'notifications' ? (
+            <>
+              {notifications !== undefined && notifications.length > 0 ? (
+                <>
+                  {notifications.map((notification) => (
+                    <Notification data={notification} key={notification.id}/>
+                  ))}
+                </>
+              ) : null }
+            </>
+          ): null}
         </div>
       </div>
     </div>

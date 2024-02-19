@@ -8,6 +8,7 @@ import StationsService from "../services/StationsServices";
 import TrainsService from "../services/TrainsServices";
 import ChairsService from "../services/ChairsServices";
 import TripsService from "../services/TripsService";
+import { useNotification } from "./useNotification";
 
 export const useContextHook = () => {
 
@@ -16,8 +17,12 @@ export const useContextHook = () => {
   const { ChairsDispatch, ChairsState } = useContext(ChairsContext);
   const { AuthDispatch, AuthState } = useContext(AuthContext);
   const { TripsDispatch, TripsState } = useContext(TripsContext);
+  const { getNotifications } = useNotification()
 
   const setDataContexts = () => {
+    if(AuthState.isAuth) {
+      getNotifications()
+    }
     useEffect(() => {
       if(StationsState.stations.length === 0) {
         StationsService.getAllStations()

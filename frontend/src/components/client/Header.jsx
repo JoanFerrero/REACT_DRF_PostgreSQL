@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { setDataContexts, dispathCustom } = useContextHook();
+  const { setDataContexts } = useContextHook();
   const { useLogOutUser} = useAuth();
 
   setDataContexts()
@@ -57,6 +57,12 @@ const Header = () => {
               <a className="nav-link" onClick={() => redirects.trips()}>Trips</a>
               {isAdminUser}
               {isUser}
+              <div className="position-relative">
+                <img src="https://i.pinimg.com/originals/6f/57/76/6f57760966a796644b8cfb0fbc449843.png" alt="Imagen de perfil" className="rounded-circle" style={{ width: '32px', height: '32px' }} />
+                <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+                  1
+                </span>
+              </div>
             </ul>
           </div>
         </div>
