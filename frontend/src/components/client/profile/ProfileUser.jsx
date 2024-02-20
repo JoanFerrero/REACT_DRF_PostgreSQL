@@ -10,19 +10,20 @@ import Incidents from "./Incidents";
 import FormIncidents from "../incidents/FormIncidents";
 import Notification from "../notifications/Notification";
 import { useNotification } from "../../../hooks/useNotification";
+import { NotificationsContext } from "../../../context/Notifications/NotificationsProvider"
 
 const ProfileUser = () => {
   const { page, rent, useChangePage, useChangePageData } = useProfile();
   const { rents, useSetRent } = useRent();
   const { incidentsT, incidentsC, useSetIncidents, usePostIncidents} = useIncidents();
-  const { notifications, getNotifications } = useNotification()
+  const { NotificationsState } = useContext(NotificationsContext);
+  const { AuthState } = useContext(AuthContext);
+
   useEffect(() => {
     useSetRent();
     useSetIncidents();
-    getNotifications();
   }, [])
-
-  const { AuthState } = useContext(AuthContext);
+  
   return (
     <div className="container mt-5">
       <div className="row">
@@ -79,9 +80,9 @@ const ProfileUser = () => {
           ) : null}
           {page === 'notifications' ? (
             <>
-              {notifications !== undefined && notifications.length > 0 ? (
+              {NotificationsState.notifications !== undefined && NotificationsState.notifications.length > 0 ? (
                 <>
-                  {notifications.map((notification) => (
+                  {NotificationsState.notifications.map((notification) => (
                     <Notification data={notification} key={notification.id}/>
                   ))}
                 </>

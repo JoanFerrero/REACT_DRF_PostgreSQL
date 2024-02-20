@@ -1,13 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextHook } from "../../hooks/useContextHook";
 import { AuthContext } from "../../context/Auth/AuthProvider";
 import { useAuth } from "../../hooks/useAuth";
+import { NotificationsContext } from "../../context/Notifications/NotificationsProvider";
+import NotificationHeader from "./notifications/NotificationHeader";
+
 
 const Header = () => {
   const navigate = useNavigate();
-  const { setDataContexts } = useContextHook();
+  const { setDataContexts, getNotification } = useContextHook();
   const { useLogOutUser} = useAuth();
+  const [notificate, setNotificate] = useState(false);
+  const { NotificationsState } = useContext(NotificationsContext);
+
 
   setDataContexts()
 
@@ -20,15 +26,41 @@ const Header = () => {
     profile: () => navigate('/profile'),
   }
 
+  const viewNotificate = () => {
+    setNotificate(!notificate)
+  }
+
   const { AuthState } = useContext(AuthContext);
 
   const logout = () => {
     useLogOutUser()
   }
 
+  useEffect(() => {
+    if(AuthState.isAuth) {
+      getNotification()
+    }
+  }, [AuthState.isAuth])
+
   const isUser = AuthState.isAuth ? (
     <>
       <a className="nav-link" onClick={() => redirects.profile()}>Profile</a>
+      <div className="position-relative">
+        <img src="https://i.pinimg.com/originals/6f/57/76/6f57760966a796644b8cfb0fbc449843.png" alt="Imagen de perfil" className="rounded-circle" style={{ width: '32px', height: '32px' }} onClick={() => viewNotificate()} />
+        {notificate === false ? (
+          <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+            {NotificationsState.countNotSeen}
+          </span>
+        ): (
+          <div className="position-absolute end-0  p-2" style={{ zIndex: 1000 }}>
+            <ul className="list-group">
+              {NotificationsState.notificationsNotSeen.map(data => (
+                <NotificationHeader data={data} key={data.id}/>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       <a className="nav-link" onClick={() => logout()}>Log out</a>
     </>
   ) : (              
@@ -57,12 +89,6 @@ const Header = () => {
               <a className="nav-link" onClick={() => redirects.trips()}>Trips</a>
               {isAdminUser}
               {isUser}
-              <div className="position-relative">
-                <img src="https://i.pinimg.com/originals/6f/57/76/6f57760966a796644b8cfb0fbc449843.png" alt="Imagen de perfil" className="rounded-circle" style={{ width: '32px', height: '32px' }} />
-                <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
-                  1
-                </span>
-              </div>
             </ul>
           </div>
         </div>

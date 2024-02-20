@@ -1,32 +1,20 @@
-import { useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import NotificationService from "../services/NotificationServices"
+import { useContextHook } from "./useContextHook";
 
 export const useNotification = () => {
-  const [notifications, setNotifications] = useState([])
-
-  const getNotifications = () => {
-    if(notifications.length === 0) {
-      NotificationService.getNotification()
-        .then(({ data, status }) => {
-          if (status === 200) {
-            setNotifications(data)
-          }
-      }).catch(e => {
-        console.error(e);
-      });
-    }
-  }
-
+  const { dispathCustom } = useContextHook();
   const updateNotification = (id) => {
       NotificationService.updateNotification(id)
         .then(({ data, status }) => {
           if (status === 200) {
-            setNotifications(data)
+            dispathCustom('UPDATE_NOTIFICATION', data, 'notifications')
+            dispathCustom('UPDATE_NOTIFICATION_NOT_SEEN', data, 'notifications')
+            dispathCustom('UPDATE_COUNTER', data, 'notifications')
           }
       }).catch(e => {
         console.error(e);
       });
   }
-  
-  return { notifications, getNotifications }
+  return { updateNotification }
 }

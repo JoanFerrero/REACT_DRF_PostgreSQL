@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useChairs = () => {
   const navigate = useNavigate()
-  const { dispathCustom } = useContextHook()
+  const { dispathCustom } = useContextHook();
   const [ oneChair, setOneChair ] = useState();
 
   const useAddChairs = useCallback(data => {

@@ -5,6 +5,8 @@ export const NotificationsContext = React.createContext();
 
 const initialState = {
   notifications: [],
+  notificationsNotSeen: [],
+  countNotSeen: 0
 }
 
 export function NotificationsProvider(props) {

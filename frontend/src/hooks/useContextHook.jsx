@@ -1,14 +1,15 @@
 import { StationsContext } from "../context/stations/StationsProvider";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { TrainsContext } from "../context/trains/TrainsProvider";
 import { ChairsContext } from "../context/chairs/ChairsProvider";
 import { AuthContext } from "../context/Auth/AuthProvider";
 import { TripsContext } from "../context/trips/TripsProvider";
+import { NotificationsContext } from "../context/Notifications/NotificationsProvider"
 import StationsService from "../services/StationsServices";
 import TrainsService from "../services/TrainsServices";
 import ChairsService from "../services/ChairsServices";
 import TripsService from "../services/TripsService";
-import { useNotification } from "./useNotification";
+import NotificationService from "../services/NotificationServices";
 
 export const useContextHook = () => {
 
@@ -17,12 +18,9 @@ export const useContextHook = () => {
   const { ChairsDispatch, ChairsState } = useContext(ChairsContext);
   const { AuthDispatch, AuthState } = useContext(AuthContext);
   const { TripsDispatch, TripsState } = useContext(TripsContext);
-  const { getNotifications } = useNotification()
-
+  const { NotificationsDispatch, NotificationsState} = useContext(NotificationsContext);
+  
   const setDataContexts = () => {
-    if(AuthState.isAuth) {
-      getNotifications()
-    }
     useEffect(() => {
       if(StationsState.stations.length === 0) {
         StationsService.getAllStations()
@@ -56,6 +54,17 @@ export const useContextHook = () => {
     }, [])
   }
 
+  const getNotification = () => {
+    if(NotificationsState.notifications.length === 0) {
+      NotificationService.getNotification()
+        .then(({ data }) => {
+          dispathCustom('SET_COUNTER', data.filter(item => item.seen === false).length, 'notifications')
+          dispathCustom('SET_NOTIFICATION_NOT_SEEN', data.filter(item => item.seen === false), 'notifications')
+          dispathCustom('SET_NOTIFICATION', data, 'notifications')
+        })
+    }
+  }
+
   const dispathCustom = (type, payload, context) => {
     if(context === 'stations') {
       StationsDispatch({
@@ -82,8 +91,13 @@ export const useContextHook = () => {
         type: type,
         payload: payload
       })
+    } else if(context === 'notifications') {
+      NotificationsDispatch({
+        type: type,
+        payload: payload
+      })
     }
   };
 
-  return { dispathCustom, setDataContexts }
+  return { dispathCustom, setDataContexts, getNotification }
 }
