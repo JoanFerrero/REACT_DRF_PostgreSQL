@@ -25,5 +25,6 @@ urlpatterns = [
 
     # NOTIDICATION
     path('notifications', NotificationsUser.as_view({'get': 'getNotifications'})),
-    path('notifications/<str:slug>', NotificationsUser.as_view({'delete': 'deleteNotification'})),
+    path('notifications/<str:id>', NotificationsUser.as_view({'put': 'seenNotification'})),
+    path('notifications/<str:id>', NotificationsUser.as_view({'delete': 'deleteNotification'})),
 ]

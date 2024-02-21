@@ -167,6 +167,13 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = ( 'id', 'seen', 'desc', 'user')
 
+    def to_notification(instance):
+        return ({
+            "id": instance.id,
+            "desc": instance.desc,
+            "seen": instance.seen
+        })
+
     def getNotification(context):
         try:
             user = User.objects.get(username=context['username'])
@@ -187,6 +194,23 @@ class NotificationSerializer(serializers.ModelSerializer):
             objetos_serializados.append(datos_serializados)
         
         return objetos_serializados
+    
+    def seeNotification(context):
+        notification_id = context['id']
+        username = context['username']
+
+        user = User.objects.get(username=username)
+        if user is None:
+            raise serializers.ValidationError('User is not found')
+
+        notification = Notification.objects.get(pk=notification_id, user_id=user.id, seen=False)
+        if notification is None:
+            raise serializers.ValidationError('Notification not found')
+
+        notification.seen = True
+        notification.save()
+
+        return notification
     
     def deleteNotification(context):
         try:

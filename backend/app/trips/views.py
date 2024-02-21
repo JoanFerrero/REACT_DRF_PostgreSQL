@@ -23,6 +23,11 @@ class TripView(viewsets.GenericViewSet):
         trips_serializer = TripSerializer(trips, many=True)
         return Response(trips_serializer.data)
     
+    def viewTripF(self, request, id):
+        trips = Trips.objects.filter(exit_station_id=id)
+        trips_serializer = TripSerializer(trips, many=True)
+        return Response(trips_serializer.data)
+    
     def viewOneTrip(self, request, id):
         trips = TripSerializerOne.oneTrip(id)
         return Response(TripSerializerOne.to_OneTrip(trips))
