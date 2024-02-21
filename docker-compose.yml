@@ -42,6 +42,7 @@ services:
       - "8000:8000"
     networks:
       - practica_net
+    restart: unless-stopped
   frontend:
     depends_on:
       - backend
@@ -68,6 +69,7 @@ services:
     depends_on:
       - frontend
       - backend
+    restart: unless-stopped
   prometheus:
     image: prom/prometheus:v2.20.1
     container_name: prometheus_practica
