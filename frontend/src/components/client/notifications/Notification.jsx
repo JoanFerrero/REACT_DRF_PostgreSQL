@@ -4,10 +4,6 @@ import { useNotification } from "../../../hooks/useNotification";
 const Notification = ({data}) => {
   const {updateNotification} = useNotification()
 
-  const changeSeen = (id) => {
-    updateNotification(id)
-  }
-
   return (
     <>
       {data.seen === true ? (
@@ -17,7 +13,7 @@ const Notification = ({data}) => {
           </div>
         </div>
       ): (
-        <div className="card border-primary mb-3" onClick={() => changeSeen(data.id)}>
+        <div className="card border-primary mb-3" onClick={() => updateNotification(data.id)}>
           <div className="card-body text-primary">
             <h5 className="card-title">{data.desc}</h5>
           </div>

@@ -1,6 +1,16 @@
 import React from "react"
+import { useContextHook } from "../../../hooks/useContextHook";
+import { useNavigate } from "react-router-dom";
 
 const CardStations = ({station}) => {
+  const { useChangeFiler } = useContextHook();
+  const navigate = useNavigate();
+
+  const addFiler = (id) => {
+    useChangeFiler(id)
+    navigate('/trips')
+  }
+  
   return (
     <>
       <div className="row g-0 bg-light position-relative mx-2">
@@ -10,7 +20,7 @@ const CardStations = ({station}) => {
         <div className="col-md-6 p-4 ps-md-0">
           <h5 className="mt-0">{station.name}</h5>
           <p>{station.desc}</p>
-          <a className="stretched-link">Ver Estacion</a>
+          <a className="stretched-link" onClick={() => addFiler(station.id)}>Ver Estacion</a>
         </div>
       </div>
     </>

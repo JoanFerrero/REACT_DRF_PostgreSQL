@@ -54,6 +54,22 @@ export const useContextHook = () => {
     }, [])
   }
 
+  const useChangeFiler = useCallback(data => {
+    if(data === '') {
+      TripsService.getAllTrips()
+        .then(({data}) => {
+          dispathCustom("SET_TRIPS", data, 'trips');
+          dispathCustom("STATION_FILTER", false, 'trips');
+        })
+    } else {
+      TripsService.getAllTripsFiler(data)
+      .then(({data}) => {
+        dispathCustom("SET_TRIPS", data, 'trips');
+        dispathCustom("STATION_FILTER", true, 'trips');
+      })
+    }
+  }, [])
+
   const getNotification = () => {
     if(NotificationsState.notifications.length === 0) {
       NotificationService.getNotification()
@@ -99,5 +115,5 @@ export const useContextHook = () => {
     }
   };
 
-  return { dispathCustom, setDataContexts, getNotification }
+  return { dispathCustom, setDataContexts, getNotification, useChangeFiler }
 }

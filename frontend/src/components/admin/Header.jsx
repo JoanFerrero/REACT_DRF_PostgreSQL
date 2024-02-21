@@ -20,6 +20,9 @@ const Header = () => {
 
     listChairs: () => navigate('/dashboard/listchairs'),
     createChairs: () => navigate('/dashboard/createchairs'),
+
+    listTrips: () => navigate('/dashboard/listtrips'),
+    createTrips: () => navigate('/dashboard/createtrips'),
   }
 
   return (
@@ -99,6 +102,24 @@ const Header = () => {
       <a className="nav-link" onClick={() => redirects.createChairs()}>
         <i className="fas fa-fw fa-tachometer-alt"></i>
         <span>Create Chairs</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.listTrips()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>List Trips</span>
+      </a>
+    </li>
+
+    <hr className="sidebar-divider" />
+
+    <li className="nav-item active">
+      <a className="nav-link" onClick={() => redirects.createTrips()}>
+        <i className="fas fa-fw fa-tachometer-alt"></i>
+        <span>Create Trips</span>
       </a>
     </li>
   </ul>

@@ -1,6 +1,5 @@
 import {useContext} from "react";
-import CardStations from './CardStations'
-import Search from "../Search";
+import CardStations from '../cards/CardStations'
 import { StationsContext } from "../../../context/stations/StationsProvider";
 
 const ListStations = () => {
@@ -9,7 +8,6 @@ const ListStations = () => {
 
   return (
     <>
-      <Search />
       {StationsState.stations.length !== 0 ? (
         StationsState.stations.map((station) => (
           <CardStations key={station.id} station={station}/>

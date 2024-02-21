@@ -1,15 +1,14 @@
 import {useContext} from "react";
 import CardTrips from '../cards/CardTrips';
-import Search from "../Search";
 import { TripsContext } from "../../../context/trips/TripsProvider";
-
+import Button from "../filters/ButtonFilers"
 const ListTrips = () => {
 
   const { TripsState } = useContext(TripsContext);
 
   return (
     <>
-      <Search />
+      <Button />
       {TripsState.trips.length !== 0 ? (
         TripsState.trips.map((trip) => (
           <CardTrips key={trip.id} trip={trip}/>

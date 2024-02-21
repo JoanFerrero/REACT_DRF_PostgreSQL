@@ -13,7 +13,7 @@ const Header = () => {
   const { useLogOutUser} = useAuth();
   const [notificate, setNotificate] = useState(false);
   const { NotificationsState } = useContext(NotificationsContext);
-
+  const { AuthState } = useContext(AuthContext);
 
   setDataContexts()
 
@@ -25,12 +25,6 @@ const Header = () => {
     register: () => navigate('/register'),
     profile: () => navigate('/profile'),
   }
-
-  const viewNotificate = () => {
-    setNotificate(!notificate)
-  }
-
-  const { AuthState } = useContext(AuthContext);
 
   const logout = () => {
     useLogOutUser()
@@ -46,7 +40,7 @@ const Header = () => {
     <>
       <a className="nav-link" onClick={() => redirects.profile()}>Profile</a>
       <div className="position-relative">
-        <img src="https://i.pinimg.com/originals/6f/57/76/6f57760966a796644b8cfb0fbc449843.png" alt="Imagen de perfil" className="rounded-circle" style={{ width: '32px', height: '32px' }} onClick={() => viewNotificate()} />
+        <img src="https://i.pinimg.com/originals/6f/57/76/6f57760966a796644b8cfb0fbc449843.png" alt="Imagen de perfil" className="rounded-circle" style={{ width: '32px', height: '32px' }} onClick={() => setNotificate(!notificate)} />
         {notificate === false ? (
           <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
             {NotificationsState.countNotSeen}

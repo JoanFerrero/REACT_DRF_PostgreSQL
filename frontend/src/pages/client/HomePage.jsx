@@ -1,8 +1,9 @@
 import React from "react";
+import ListStations from "../../components/client/lists/ListStations";
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <ListStations />
     </>
   )
 }

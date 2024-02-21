@@ -23,6 +23,9 @@ import ListChairsPage from './pages/admin/chairs/ListChairsPage';
 import CreateChairsPage from './pages/admin/chairs/CreateChairsPage';
 import EditChairsPage from './pages/admin/chairs/EditChairsPage';
 
+import ListTripsPage from './pages/admin/trips/ListTripsPage';
+import CreateTripsPage from './pages/admin/trips/CreateTripsPage';
+
 import LoginPage from './pages/client/LoginPage';
 import RegisterPage from './pages/client/RegisterPage';
 
@@ -64,6 +67,9 @@ function App() {
                         <Route path="/dashboard/listchairs" element={<ListChairsPage />} />
                         <Route path="/dashboard/createchairs" element={<CreateChairsPage />} />
                         <Route path="/dashboard/updatechairs/:slug" element={<EditChairsPage />} />
+                      
+                        <Route path="/dashboard/listtrips" element={<ListTripsPage />} />
+                        <Route path="/dashboard/createtrips" element={<CreateTripsPage />} />
                       </Route>
                       <Route element={<AuthGuard />}>
                         <Route path='/profile' element={<ProfilePage />} />

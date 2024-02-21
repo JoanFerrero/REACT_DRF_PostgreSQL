@@ -5,6 +5,7 @@ export const TripsContext = React.createContext();
 
 const initialState = {
   trips: [],
+  station_filter: false,
 }
 
 

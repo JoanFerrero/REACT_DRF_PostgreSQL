@@ -16,5 +16,6 @@ export const useNotification = () => {
         console.error(e);
       });
   }
+
   return { updateNotification }
 }

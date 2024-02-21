@@ -1,11 +1,14 @@
 import { useEffect } from "react";
-import DetailTren from "../../components/client/DetailsTrain"
-import { useTrips } from "../../hooks/useTrips"
+import DetailTren from "../../components/client/DetailsTrain";
+import { useTrips } from "../../hooks/useTrips";
+import { useParams } from "react-router-dom";
+
 const DetailsPage = () => {
   const { useOneTrain, trip} = useTrips();
+  const { slug } = useParams();
 
   useEffect(() => {
-    useOneTrain(2)
+    useOneTrain(slug)
   }, [])
 
   return (

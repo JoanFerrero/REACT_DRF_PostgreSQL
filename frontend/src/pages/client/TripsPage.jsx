@@ -1,5 +1,5 @@
 import ListTrips from "../../components/client/lists/ListTrips";
-import MapStations from "../../components/client/cards/MapStations";
+import Map from "../../components/client/map/Map";
 const TripsPage = () => {
   return (
     <>
@@ -8,7 +8,7 @@ const TripsPage = () => {
           <ListTrips />
         </div>
         <div className="col-sm">
-          <MapStations />
+          <Map />
         </div>
       </div>
     </>

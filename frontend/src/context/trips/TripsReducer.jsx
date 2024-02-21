@@ -25,6 +25,11 @@ export default function TripsReducer(state, action) {
         ...state,
         trips: state.trips.filter(item => item.slug !== action.payload)
       }
+    case 'STATION_FILTER':
+      return {
+        ...state,
+        station_filter: action.payload,
+      }
     default:
       return state;
   }

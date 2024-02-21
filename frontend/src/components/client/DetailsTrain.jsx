@@ -4,6 +4,7 @@ import { useRent } from '../../hooks/useRent';
 import { useNavigate } from "react-router-dom";
 
 const DetailTren = ({trip}) => {
+  console.log(trip)
   const [chair, setChair] = useState();
   const [price, setPrice] = useState(0);
   const { useCreateRent } = useRent();
