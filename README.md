@@ -376,7 +376,7 @@ http {
 
 Prometheus y Grafana son dos herramientas de código abierto ampliamente utilizadas en el ámbito de la monitorización y visualización de sistemas y aplicaciones. Prometheus es un sistema de monitoreo y alerta diseñado para recopilar métricas de sistemas y servicios, mientras que Grafana es una plataforma de visualización que permite crear paneles interactivos y gráficos a partir de datos provenientes de diversas fuentes, incluyendo Prometheus. Juntos, ofrecen una solución integral para monitorear, analizar y visualizar el rendimiento y la salud de infraestructuras tecnológicas de manera eficiente y escalable.
 
-Entraremos al puerto localhost:3500 y veremos la siguiente pantalla de dashboard. En mi caso tengo una metrica creada que se llama "New Panel".
+Entraremos al puerto localhost:3500 y veremos la siguiente pantalla de dashboard. En mi caso tengo una métrica creada que se llama "New Panel".
 
 <img src="https://github.com/JoanFerrero/REACT_DRF_PostgreSQL/blob/master_docker_compose/img/grafana.png" alt="loadbalancer" style="max-width: 100%;">
 
