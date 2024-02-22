@@ -49,7 +49,6 @@ export const useAuth = () => {
         }
     }).catch(e => {
       console.error(e);
-      useLogOutUser();
       toast.error('Correo o contraseña incorrecto!');
     });
   }, [])

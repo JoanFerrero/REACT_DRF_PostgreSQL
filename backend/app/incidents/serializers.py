@@ -7,7 +7,7 @@ from users.serializers import UserSerializer
 class IncidentsTrainSerializer(serializers.ModelSerializer):
     class Meta:
         model = IncidenceTrain
-        fields = ( 'id', 'title', 'status', 'desc', 'user', 'train')
+        fields = ( 'id', 'title', 'status', 'desc', 'train_id', 'user_id')
 
     def to_incidence_train(instance):
         return ({
@@ -90,10 +90,10 @@ class IncidentsTrainSerializer(serializers.ModelSerializer):
             incidence.status = 'pending'
         elif (new_status == 'in_progress'):
             incidence.status = 'in_progress'
-            Notification.objects.create(desc="Your slot incidence: " + str(incidence.title) + ", is in progress.", user_id=incidence.user_id, seen=False)
+            Notification.objects.create(desc="Incidencia para: " + str(incidence.title) + ", esta en proceso.", user_id=incidence.user_id, seen=False)
         elif (new_status == 'resolved'):
             incidence.status = 'resolved'
-            Notification.objects.create(desc="Your slot incidence: " + str(incidence.title) + ", is resolved. Thank you!", user_id=incidence.user_id, seen=False)
+            Notification.objects.create(desc="Incidencia para: " + str(incidence.title) + ", esta resuelta. Thank you!", user_id=incidence.user_id, seen=False)
         else:
             raise serializers.ValidationError('The incidence is closed')
 
@@ -104,8 +104,18 @@ class IncidentsTrainSerializer(serializers.ModelSerializer):
 class IncidentsChairSerializer(serializers.ModelSerializer):
     class Meta:
         model = IncidenceChair
-        fields = ( 'id', 'title', 'status', 'desc', 'user', 'chair')
+        fields = ( 'id', 'title', 'status', 'desc', 'user', 'chair_id', 'user_id')
 
+    def to_incidence_chair(instance):
+        return ({
+            "id": instance.id,
+            "title": instance.title,
+            "status": instance.status,
+            "desc": instance.desc,
+            "user": instance.user_id,
+            "chair": instance.chair_id
+        })
+    
     def getIncidents(context):
         username = context['username']
 
@@ -161,6 +171,30 @@ class IncidentsChairSerializer(serializers.ModelSerializer):
             'status': 'pending',
             'desc': desc,
         }
+
+    def updateStatus(context, id):
+        new_status = context['status']
+        incidence = IncidenceChair.objects.get(id=id)
+
+        if incidence is None:
+            raise serializers.ValidationError('Incident not found')
+
+        if (incidence.status == 'resolved'):    
+            raise serializers.ValidationError('The incidence is already resolved')
+
+        if (new_status == 'pending'):
+            incidence.status = 'pending'
+        elif (new_status == 'in_progress'):
+            incidence.status = 'in_progress'
+            Notification.objects.create(desc="Incidencia para: " + str(incidence.title) + ", esta en proceso.", user_id=incidence.user_id, seen=False)
+        elif (new_status == 'resolved'):
+            incidence.status = 'resolved'
+            Notification.objects.create(desc="Incidencia para: " + str(incidence.title) + ", esta resuelta. Gracias!", user_id=incidence.user_id, seen=False)
+        else:
+            raise serializers.ValidationError('The incidence is closed')
+
+        incidence.save()
+        return incidence
     
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:

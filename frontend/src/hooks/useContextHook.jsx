@@ -4,12 +4,14 @@ import { TrainsContext } from "../context/trains/TrainsProvider";
 import { ChairsContext } from "../context/chairs/ChairsProvider";
 import { AuthContext } from "../context/Auth/AuthProvider";
 import { TripsContext } from "../context/trips/TripsProvider";
-import { NotificationsContext } from "../context/Notifications/NotificationsProvider"
+import { NotificationsContext } from "../context/Notifications/NotificationsProvider";
+import { IncidentsContext } from "../context/Incidents/IncidentsProvider";
 import StationsService from "../services/StationsServices";
 import TrainsService from "../services/TrainsServices";
 import ChairsService from "../services/ChairsServices";
 import TripsService from "../services/TripsService";
 import NotificationService from "../services/NotificationServices";
+import IncidentsService from "../services/IncidentsServices";
 
 export const useContextHook = () => {
 
@@ -18,14 +20,31 @@ export const useContextHook = () => {
   const { ChairsDispatch, ChairsState } = useContext(ChairsContext);
   const { AuthDispatch, AuthState } = useContext(AuthContext);
   const { TripsDispatch, TripsState } = useContext(TripsContext);
-  const { NotificationsDispatch, NotificationsState} = useContext(NotificationsContext);
-  
+  const { NotificationsDispatch, NotificationsState } = useContext(NotificationsContext);
+  const { IncidentsDispatch, IncidentsState } = useContext(IncidentsContext)
+
   const setDataContexts = () => {
     useEffect(() => {
       if(StationsState.stations.length === 0) {
         StationsService.getAllStations()
           .then(({data}) => {
             dispathCustom("SET_STATIONS", data, 'stations')
+          })
+        .catch(e => console.error(e));
+      };
+      
+      if(IncidentsState.incidentsTrain.length === 0) {
+        IncidentsService.getAllIncidentsTrain()
+          .then(({data}) => {
+            dispathCustom("SET_INCIDENTS_TRAIN", data, 'incidents')
+          })
+        .catch(e => console.error(e));
+      };
+
+      if(IncidentsState.incidentsChair.length === 0) {
+        IncidentsService.getAllIncidentsChair()
+          .then(({data}) => {
+            dispathCustom("SET_INCIDENTS_CHAIR", data, 'incidents')
           })
         .catch(e => console.error(e));
       };
@@ -109,6 +128,11 @@ export const useContextHook = () => {
       })
     } else if(context === 'notifications') {
       NotificationsDispatch({
+        type: type,
+        payload: payload
+      })
+    } else if(context === 'incidents') {
+      IncidentsDispatch({
         type: type,
         payload: payload
       })

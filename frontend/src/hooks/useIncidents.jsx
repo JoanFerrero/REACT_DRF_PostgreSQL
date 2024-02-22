@@ -1,10 +1,15 @@
 import { useCallback, useState } from "react";
 import IncidentsService from "../services/IncidentsServices";
 import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+import { useContextHook } from "./useContextHook";
 
 export const useIncidents = () => {
+  const { dispathCustom } = useContextHook()
   const [incidentsT, setIncidentsT] = useState([])
   const [incidentsC, setIncidentsC] = useState([])
+  const [ oneIncident, setOneIncident ] = useState();
+  const navigate = useNavigate()
 
   const useSetIncidents = useCallback(() => {
     IncidentsService.getIncidentTrain()
@@ -26,7 +31,55 @@ export const useIncidents = () => {
     });
   }, [])
 
-  
+  const useGetIncident = useCallback((type, id) => {
+    if(type === 'train') {
+      IncidentsService.getOneIncidentTrain(id)
+        .then(({data, status}) => {
+          if (status === 200) {
+            setOneIncident(data)
+          }
+      }).catch(e => {
+        console.error(e);
+      });
+    }
+
+    if(type === 'chair') {
+      IncidentsService.getOneIncidentChair(id)
+        .then(({data, status}) => {
+          if (status === 200) {
+            setOneIncident(data)
+          }
+      }).catch(e => {
+        console.error(e);
+      });
+    }
+  }, [])
+
+  const useUpdateIncidents = useCallback((slug, dataI, type) => {
+    if(type === 'train') {
+      IncidentsService.putIncidentTrain(slug, dataI)
+        .then(({data, status}) => {
+          if (status === 200) {
+            dispathCustom('EDIT_INCIDENTS_TRAIN', data, 'incidents')
+            navigate('/dashboard/listincidents')
+          }
+      }).catch(e => {
+        console.error(e);
+      });
+    }
+
+    if(type === 'chair') {
+      IncidentsService.putIncidentChair(slug, dataI)
+        .then(({data, status}) => {
+          if (status === 200) {
+            dispathCustom('EDIT_INCIDENTS_CHAIR', data, 'incidents')
+            navigate('/dashboard/listincidents')
+          }
+      }).catch(e => {
+        console.error(e);
+      });
+    }
+  }, [])
 
   const usePostIncidents = useCallback((data) => {
     if( data.option === 'chair') {
@@ -62,5 +115,5 @@ export const useIncidents = () => {
     }
   }, [])
   
-  return { useSetIncidents, incidentsC, incidentsT, usePostIncidents }
+  return { useUpdateIncidents, oneIncident, useGetIncident, useSetIncidents, incidentsC, incidentsT, usePostIncidents, useUpdateIncidents }
 }

@@ -16,6 +16,11 @@ class IncidentsTrain(viewsets.GenericViewSet):
         incident_final = IncidentsTrainSerializer.getIncidents(context=serializer_context)
         return Response(incident_final)
     
+    def getOneIncidents(self, request, id):
+        incident = IncidenceTrain.objects.get(id=id)
+        incident_final = IncidentsTrainSerializer(incident)
+        return Response(incident_final.data)
+    
     def postIncident(seld, request):
         username = request.user
         incident = JSONParser().parse(request)
@@ -36,6 +41,11 @@ class IncidentsChair(viewsets.GenericViewSet):
         serializer_context = { 'username': username }
         incident_final = IncidentsChairSerializer.getIncidents(context=serializer_context)
         return Response(incident_final)
+    
+    def getOneIncidents(self, request, id):
+        incident = IncidenceChair.objects.get(id=id)
+        incident_final = IncidentsChairSerializer(incident)
+        return Response(incident_final.data)
     
     def postIncident(seld, request):
         username = request.user
@@ -75,7 +85,9 @@ class IncidentsViewAdmin(viewsets.GenericViewSet):
         return Response(incidents_serializer.data)
     
     def updateIncidentsChairs(self, request, id):
-        return Response()
+        context = request.data
+        incidence = IncidentsChairSerializer.updateStatus(context, id)
+        return Response(IncidentsChairSerializer.to_incidence_chair(incidence))
     
     def deleteIncidentChairs(self, request, slug):
         incident = IncidenceChair.objects.get(id=slug)
