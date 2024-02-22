@@ -91,8 +91,10 @@ services:
     ports:
     - "3500:3000"
     volumes:
-    - ./Grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-    - myGrafanaVol:/var/lib/grafana
+      - myGrafanaVol:/var/lib/grafana
+      - ./Grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./Grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./Grafana/templates:/var/lib/grafana/dashboards
     environment:
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
       GF_AUTH_ANONYMOUS_ENABLED: "true"
