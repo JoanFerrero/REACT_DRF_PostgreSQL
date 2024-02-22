@@ -20,16 +20,13 @@ Por [`Joan Ferrero Montiel`](https://github.com/JoanFerrero)
    Ver detalles del viaje con todos los asientos disponibles de tren y realizar reserva de un asiento.
 
 4. **Profile:**
-   Ver el perfil de tu perfil, accediendo a un listado donde podrás ver tus reservas y  cancelar la reserva
-   si no está activada.
-
-   Ver el perfil de tu usuario, incidencias, notificaciones y reservas del usuario
+      Ver el perfil de tu usuario, incidencias, notificaciones y reservas del usuario.
 
 6. **Login:**
    Register y Login de usuario.
 
 7. **Dashboard:**
-   Solo tienen acceso los administradores, contiene los cruds: Estaciones, Trenes, Sillas, Viajes y modificar el status de una incidencia.
+   Solo tienen acceso los administradores, contiene los cruds: Estaciones, Trenes, Sillas, Viajes y modificar el estado de una incidencia.
 
 ## Instalar 💿
 
@@ -38,10 +35,6 @@ Por [`Joan Ferrero Montiel`](https://github.com/JoanFerrero)
 ### `Requisitos`
 
 Tener instalado las siguientes herramientas:
-
-React v18.2.0
-DRF v3.14.0
-MySQL
 
 - [React](https://es.react.dev/) v18.2.0
 - [DRF](https://www.djangoproject.com/) v3.14.0
@@ -82,7 +75,6 @@ Lista de tecnologías utilizadas en este proyecto:
   - Relationships
   - Schema
   - Middleware_auth
-  - Header
   - Token JWT
   - Token Blacklist
 
