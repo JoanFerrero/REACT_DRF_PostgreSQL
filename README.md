@@ -195,7 +195,23 @@ Si no hay ningún problema de que tengamos algún puerto en uso se ejecutara ade
 
 En el caso del Frontend y Backend existen dos docker files con dos etapas para la instalación correcta.
 
-## Dockerfile Backend
+## Backend
+
+Este repositorio contiene un backend desarrollado en Django, dockerizado utilizando dockerfil para facilitar el despliegue y la gestión de dependencias.
+
+Estructura del backend.
+
+El backend se organiza de la siguiente manera:
+
+ - backend/: Contiene el código fuente del backend Django.
+ - docker-compose.yml: Define los servicios necesarios para ejecutar la aplicación en contenedores Docker.
+ - Dockerfile: Define cómo se construye la imagen Docker para el backend.
+ - requirements.txt: Lista las dependencias de Python necesarias para ejecutar el backend.
+
+El Dockerfile consta de dos stages para optimizar la construcción de la imagen:
+
+ - Stage de install: Instala las dependencias del sistema y copia el código fuente del backend.
+ - Stage de start: Utiliza una imagen de Python:3.10.12, copia los archivos necesarios del stage de install y ejecuta los comandos necesarios para compilar el proyecto. Configura el entorno y expone el puerto 8000 para servir la aplicación.
 
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto">
   <pre class="notranslate">
@@ -227,7 +243,23 @@ ENTRYPOINT ["python3", "/app/manage.py", "runserver", "0.0.0.0:8000", "--noreloa
   </div>
 </div>
 
-## Dockerfile Frontend
+## Frontend
+
+Dockerización de Frontend React con Docker Compose
+
+Este repositorio contiene un frontend desarrollado en React, dockerizado con Docker Compose para simplificar la gestión del entorno de desarrollo y despliegue. La configuración incluye un Dockerfile optimizado para la construcción de la imagen Docker.
+
+El frontend se organiza de la siguiente manera:
+
+ - frontend/: Contiene el código fuente del frontend React.
+ - docker-compose.yml: Archivo de configuración de Docker Compose.
+ - Dockerfile: Define la construcción de la imagen Docker para el frontend.
+ - package.json: Archivo de configuración de npm con las dependencias del proyecto.
+
+El Dockerfile consta de dos stages para optimizar la construcción de la imagen:
+
+ - Stage de install: Instala las dependencias del sistema y copia el código fuente del frontend.
+ - Stage de start: Utiliza una imagen de node:20-alpine, copia los archivos necesarios del stage de install y ejecuta los comandos necesarios para compilar el proyecto. Configura el entorno y expone el puerto 5173 para servir la aplicación.
 
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto">
   <pre class="notranslate">
@@ -268,6 +300,12 @@ Cogiendo todas las tablas y datos del archivo init.sql que se encuentra dentó d
 1. usuario -> root
 2. password -> root
 3. db -> ontibike
+
+Para realizar una conexión a la base de datos postgresql mediante pgadmin seguiremos los siguientes pasos.
+
+## Servicio de loadbalancer de nginx
+
+Explicacion loadbalancer de nginx
 
 # Explicacion
 
