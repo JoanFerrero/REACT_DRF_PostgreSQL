@@ -72,11 +72,11 @@ Lista de tecnologías utilizadas en este proyecto:
   - Controllers
   - DB validation
   - PostgreSQL
-  - Relationships
-  - Schema
+     - Relationships
+     - Schema
   - Middleware_auth
-  - Token JWT
-  - Token Blacklist
+     - Token JWT
+     - Token Blacklist
 
 `Frontend` 🏛️
 
@@ -87,7 +87,7 @@ Lista de tecnologías utilizadas en este proyecto:
   - Models
   - Components
   - Reactive Forms
-  - Validation
+     - Validation
   - Lazy load
   - Guards
   - Service with axios
