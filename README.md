@@ -10,7 +10,7 @@ Bienvenido a nuestra plataforma de reservas de trenes, donde puedes planificar y
 4. Docker Compose
 5. Explicación
 
-# Clonacion Repositorio!
+# Clonación Repositorio!
 
 Para clonar el repositorio tendremos que asignar también la rama que queremos clonar en este caso master_docker_compose.
 
@@ -193,8 +193,6 @@ Si no hay ningún problema de que tengamos algún puerto en uso se ejecutara ade
   </div>
 </div>
 
-En el caso del Frontend y Backend existen dos docker files con dos etapas para la instalación correcta.
-
 ## Backend
 
 Este repositorio contiene un backend desarrollado en Django, dockerizado utilizando dockerfil para facilitar el despliegue y la gestión de dependencias.
@@ -293,7 +291,7 @@ EXPOSE 5173</code>
 
 ## DB Postgres
 
-En el docker compose creará la base de datos para después añadir todos los datos.
+En el docker compose se creará la base de datos para después añadir todos los datos.
 
 Cogiendo todas las tablas y datos del archivo init.sql que se encuentra dentó de la carpeta db.
 
@@ -301,7 +299,7 @@ Cogiendo todas las tablas y datos del archivo init.sql que se encuentra dentó d
 2. password -> root
 3. db -> ontibike
 
-Para realizar una conexión a la base de datos postgresql mediante pgadmin seguiremos los siguientes pasos.
+Para realizar una conexión a la base de datos postgresql mediante pgadmin sigue los siguientes pasos.
 
 La contraseña de acceso es:
  - Usuario: root@root.com
@@ -321,6 +319,16 @@ Y en connection añadiremos el nombre de la base de datos dockerizada que se lla
 Le daremos a save y podremos ver el siguiente resultado.
 
 <img src="https://github.com/JoanFerrero/REACT_DRF_PostgreSQL/blob/master_docker_compose/img/resultado.png" alt="Login PgAdmin" style="max-width: 100%;">
+
+## Servicio de loadbalancer de nginx
+
+Este repositorio proporciona una configuración básica para implementar un Load Balancer utilizando Nginx para tanto el frontend como el backend de la aplicacion. 
+
+Como podemos ver en la imagen siguiente tenemos el nombre de backend-app que es el que está configurado.
+
+<img src="https://github.com/JoanFerrero/REACT_DRF_PostgreSQL/blob/master_docker_compose/img/loadbalancer.png" alt="loadbalancer" style="max-width: 100%;">
+
+Adjunto fichero de configuración nginx.conf.
 
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto">
   <pre class="notranslate">
@@ -363,18 +371,6 @@ http {
     </clipboard-copy>
   </div>
 </div>
-
-## Servicio de loadbalancer de nginx
-
-Este repositorio proporciona una configuración básica para implementar un Load Balancer utilizando Nginx para tanto el frontend como el backend de la aplicacion. 
-
-Como podemos ver en la imagen siguiente tenemos el nombre de backend-app que es el que está configurado.
-
-<img src="https://github.com/JoanFerrero/REACT_DRF_PostgreSQL/blob/master_docker_compose/img/loadbalancer.png" alt="loadbalancer" style="max-width: 100%;">
-
-Adjunto fickero nginx.conf
-
-
 
 # Explicación
 
