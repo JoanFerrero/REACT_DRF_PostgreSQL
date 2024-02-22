@@ -32,22 +32,6 @@ export const useContextHook = () => {
           })
         .catch(e => console.error(e));
       };
-      
-      if(IncidentsState.incidentsTrain.length === 0) {
-        IncidentsService.getAllIncidentsTrain()
-          .then(({data}) => {
-            dispathCustom("SET_INCIDENTS_TRAIN", data, 'incidents')
-          })
-        .catch(e => console.error(e));
-      };
-
-      if(IncidentsState.incidentsChair.length === 0) {
-        IncidentsService.getAllIncidentsChair()
-          .then(({data}) => {
-            dispathCustom("SET_INCIDENTS_CHAIR", data, 'incidents')
-          })
-        .catch(e => console.error(e));
-      };
 
       if(TrainsState.trains.length === 0) {
         TrainsService.getAllTrains()
@@ -72,6 +56,26 @@ export const useContextHook = () => {
       }
     }, [])
   }
+
+  const setDataInsidents = useCallback(() => {
+    if(AuthState.isAdmin) {
+      if(IncidentsState.incidentsTrain.length === 0) {
+        IncidentsService.getAllIncidentsTrain()
+          .then(({data}) => {
+            dispathCustom("SET_INCIDENTS_TRAIN", data, 'incidents')
+          })
+        .catch(e => console.error(e));
+      }
+
+      if(IncidentsState.incidentsChair.length === 0) {
+        IncidentsService.getAllIncidentsChair()
+          .then(({data}) => {
+            dispathCustom("SET_INCIDENTS_CHAIR", data, 'incidents')
+          })
+        .catch(e => console.error(e));
+      };
+    }
+  }, []);
 
   const useChangeFiler = useCallback(data => {
     if(data === '') {
@@ -139,5 +143,5 @@ export const useContextHook = () => {
     }
   };
 
-  return { dispathCustom, setDataContexts, getNotification, useChangeFiler }
+  return { setDataInsidents, dispathCustom, setDataContexts, getNotification, useChangeFiler }
 }
