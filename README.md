@@ -8,7 +8,13 @@ Bienvenido a nuestra plataforma de reservas de trenes, donde puedes planificar y
 2. Arrancar docker
 3. Contenedores
 4. Docker Compose
-5. Explicación
+5. Backend
+6. Frontend
+7. DB PostgreSQL
+8. Servicio de loadbalancer de nginx
+9. Prometheus
+10. Grafana
+11. Explicación
 
 # Clonación Repositorio!
 
@@ -57,7 +63,7 @@ Este comando ejecutará todos los servicios, empieza en el siguiente orden bd, p
 
 Si no hay ningún problema de que tengamos algún puerto en uso se ejecutara adecuadamente.
 
-# Conenedores
+# Contenedores
 
 1. db -> 5432:5432
 2. pgadmin -> 8888:80
@@ -289,11 +295,11 @@ EXPOSE 5173</code>
   </div>
 </div>
 
-## DB Postgres
+## DB PostgreSQL
 
 En el docker compose se creará la base de datos para después añadir todos los datos.
 
-Cogiendo todas las tablas y datos del archivo init.sql que se encuentra dentó de la carpeta db.
+Cogiendo todas las tablas y datos del archivo init.dump que se encuentra dentó de la carpeta db.
 
 1. usuario -> root
 2. password -> root
@@ -372,11 +378,74 @@ http {
   </div>
 </div>
 
-## Grafana - Prometheus
+## Prometheus
 
-Prometheus y Grafana son dos herramientas de código abierto ampliamente utilizadas en el ámbito de la monitorización y visualización de sistemas y aplicaciones. Prometheus es un sistema de monitoreo y alerta diseñado para recopilar métricas de sistemas y servicios, mientras que Grafana es una plataforma de visualización que permite crear paneles interactivos y gráficos a partir de datos provenientes de diversas fuentes, incluyendo Prometheus. Juntos, ofrecen una solución integral para monitorear, analizar y visualizar el rendimiento y la salud de infraestructuras tecnológicas de manera eficiente y escalable.
+Prometheus es un sistema de monitoreo de código abierto que recopila métricas y datos de series temporales de sistemas informáticos. Ofrece almacenamiento, consulta y visualización de datos, además de capacidades avanzadas de alerta para detectar y notificar sobre problemas en tiempo real.
 
-Entraremos al puerto localhost:3500 y veremos la siguiente pantalla de dashboard. En mi caso tengo una métrica creada que se llama "New Panel".
+Configuración prometheus.yml
+
+En este archivo se indicará el nombre del backend para que realice todas las métricas a esa dirección.
+
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto">
+  <pre class="notranslate">
+<code>global:
+  scrape_interval: 5s
+  evaluation_interval: 30s
+scrape_configs:
+  - job_name: "backend"
+    honor_labels: true
+    static_configs:
+      - targets: ["backend:8000"]
+</code>
+  </pre>
+  <div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="https://github.com/davidmpenades/e-Move_React18Context_Django5.git" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+      </svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+      </svg>
+    </clipboard-copy>
+  </div>
+</div>
+
+Para comprovar que funciona correctamente, accederemos a la url localhost:9090 y comprobamos que tenemos el panel de prometheus funcionando.
+
+## Grafana
+
+Grafana es una plataforma versátil para visualizar datos en tiempo real. Permite crear paneles personalizados con gráficos, tablas y más, conectando diversas fuentes de datos. Es intuitiva, ofrece opciones avanzadas como alertas y es ideal para monitorear sistemas, analizar rendimientos y tomar decisiones informadas.
+
+Configuracion datasources.yml
+
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto">
+  <pre class="notranslate">
+<code>apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: prometheus_practica:9090
+    basicAuth: false
+    isDefault: true
+    editable: true
+
+</code>
+  </pre>
+  <div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="https://github.com/davidmpenades/e-Move_React18Context_Django5.git" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+      </svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+      </svg>
+    </clipboard-copy>
+  </div>
+</div>
+
+Entraremos al puerto localhost:3500 y veremos la siguiente pantalla de dashboard. En mi caso tengo una métrica creada por defecto, es importada en el docker compose y se llama "New Panel".
 
 <img src="https://github.com/JoanFerrero/REACT_DRF_PostgreSQL/blob/master_docker_compose/img/grafana.png" alt="loadbalancer" style="max-width: 100%;">
 
